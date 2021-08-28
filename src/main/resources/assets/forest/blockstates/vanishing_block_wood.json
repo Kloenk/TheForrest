@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "current=true": { "model": "forest:block/vanishing_block_wood_on" },
+    "current=false": { "model":  "forest:block/vanishing_block_wood" }
+  }
+}

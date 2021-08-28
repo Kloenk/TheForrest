@@ -3,6 +3,7 @@ package dev.kloenk.forest.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.server.world.ServerWorld;
@@ -22,20 +23,26 @@ import java.util.Random;
 
 public class VanishingBlock extends Block {
     public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
-    public static final BooleanProperty VANISH = BooleanProperty.of("vanish");
     public static final BooleanProperty CURRENT = BooleanProperty.of("current");
 
     private static final VoxelShape VANISHED_SHAPE = VoxelShapes.cuboid(6f, 6f, 6f, 10f, 10f, 10f);
 
+    private boolean vanish;
+
     public VanishingBlock(Settings settings, boolean vanish) {
         super(settings);
 
-        setDefaultState(getStateManager().getDefaultState().with(ACTIVE, false).with(VANISH, vanish).with(CURRENT, false));
+        this.vanish = vanish;
+
+        setDefaultState(getStateManager().getDefaultState().with(ACTIVE, false).with(CURRENT, false));
     }
 
     private void setActive(World world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
-        setActive(world, pos, state);
+        Block block = state.getBlock();
+        if (block instanceof VanishingBlock) {
+            ((VanishingBlock)block).setActive(world, pos, state);
+        }
     }
 
     private void setActive(World world, BlockPos pos, BlockState state) {
@@ -68,7 +75,6 @@ public class VanishingBlock extends Block {
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(ACTIVE);
-        builder.add(VANISH);
         builder.add(CURRENT);
     }
 
@@ -93,7 +99,7 @@ public class VanishingBlock extends Block {
             }
         } else {
             if (state.get(ACTIVE)) {
-                if (state.get(VANISH)) {
+                if (vanish) {
                     world.removeBlock(pos, false);
                 } else {
                     world.setBlockState(pos, state.with(CURRENT, true).with(ACTIVE, false));
@@ -138,5 +144,10 @@ public class VanishingBlock extends Block {
     @Override
     public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
         return state.get(CURRENT) ? 14 : 0;
+    }
+
+    @Override
+    public PistonBehavior getPistonBehavior(BlockState state) {
+        return PistonBehavior.BLOCK;
     }
 }

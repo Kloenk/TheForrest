@@ -1,0 +1,6 @@
+{
+  "parent": "forest:block/util/giant_block",
+  "textures": {
+    "all": "minecraft:block/obsidian"
+  }
+}
