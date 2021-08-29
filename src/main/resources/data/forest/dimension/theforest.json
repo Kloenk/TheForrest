@@ -1,0 +1,12 @@
+{
+  "generator": {
+    "type": "forest:featured_noise",
+    "biome_source": {
+      "seed": 0,
+      "type": "forest:grid"
+    },
+    "seed": 0,
+    "settings": "forest:forest_noise_config"
+  },
+  "type": "forest:theforest_type"
+}

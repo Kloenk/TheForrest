@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.kloenk.forest.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "BiomeLayerSamplerAccessor",
+    "ClientAdvancementManagerAccessor",
+    "HeightMapAccessor",
+    "NoiseChunkGeneratorAccessor",
+    "WorldAccessor",
+    "ChunkGeneratorSettingsAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
