@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.kloenk.forest.mixin.BiomeLayerSamplerAccessor;
+import dev.kloenk.forest.world.dimension.biom.TFBiomeKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.dynamic.RegistryLookupCodec;
@@ -11,6 +12,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.biome.DefaultBiomeCreator;
 import net.minecraft.world.biome.layer.BiomeLayers;
 import net.minecraft.world.biome.layer.util.*;
 import net.minecraft.world.biome.source.BiomeLayerSampler;
@@ -28,6 +30,7 @@ public class TFBiomProvider extends BiomeSource {
 
     // TODO: biome list
     private static final List<RegistryKey<Biome>> BIOMES = ImmutableList.of(
+            TFBiomeKeys.FOREST,
             BiomeKeys.BEACH,
             BiomeKeys.JUNGLE
     );

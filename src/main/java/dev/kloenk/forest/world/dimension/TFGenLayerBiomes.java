@@ -1,6 +1,7 @@
 package dev.kloenk.forest.world.dimension;
 
 import com.google.common.collect.ImmutableList;
+import dev.kloenk.forest.world.dimension.biom.TFBiomeKeys;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
@@ -17,6 +18,7 @@ public class TFGenLayerBiomes implements InitLayer {
     private static final int RARE_BIOME_CHANCE = 15;
 
     protected static final List<RegistryKey<Biome>> commonBiomes = ImmutableList.of(
+            TFBiomeKeys.FOREST,
             BiomeKeys.JUNGLE
     );
 
