@@ -33,6 +33,7 @@ public class GiantBlock extends Block {
 
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        // TODO: if playerentit in getVolume, tp ontop
         if (!world.isClient) {
             for (BlockPos iterPos: getVolume(pos)) {
                 world.setBlockState(iterPos, getDefaultState());
