@@ -12,6 +12,23 @@ group = project.maven_group
 
 loom {
     accessWidenerPath = file "src/main/resources/forest.accesswidener"
+
+    runs {
+        data {
+            //workingDirectory project.file('run')
+
+            defaultMainClass = "net.minecraft.data.Main"
+
+            environment = ""
+            /*mods {
+
+            }*/
+            /*args = ['--mod', 'forest', '--all',
+                    '--existing', '"' + file('src/main/resources/') + '"',
+                    '--existing', '"' + file('src/generated/resources/') + '"',
+                    '--output', '"' + file('src/generated/resources') + '"']*/
+        }
+    }
 }
 
 dependencies {

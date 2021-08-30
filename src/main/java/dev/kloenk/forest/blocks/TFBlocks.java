@@ -7,6 +7,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.sound.BlockSoundGroup;
@@ -124,10 +125,15 @@ public class TFBlocks {
         registerBlockAndItem("dark_wood_stripped", DARK_WOOD_STRIPPED);
         // Leaves
         registerBlockAndItem("oak_leaves", OAK_LEAVES);
+        FlammableBlockRegistry.getDefaultInstance().add(OAK_LEAVES, 60, 30);
         registerBlockAndItem("canopy_leaves", CANOPY_LEAVES);
+        FlammableBlockRegistry.getDefaultInstance().add(CANOPY_LEAVES, 60, 30);
         registerBlockAndItem("mangrove_leaves", MANGROVE_LEAVES);
+        FlammableBlockRegistry.getDefaultInstance().add(MANGROVE_LEAVES, 60, 30);
         registerBlockAndItem("dark_leaves", DARK_LEAVES);
+        FlammableBlockRegistry.getDefaultInstance().add(DARK_LEAVES, 60, 30);
         registerBlockAndItem("rainbow_leaves", RAINBOW_LEAVES);
+        FlammableBlockRegistry.getDefaultInstance().add(RAINBOW_LEAVES, 60, 30);
 
         // Portal
         registerBlockAndItem("forest_portal", FOREST_PORTAL);

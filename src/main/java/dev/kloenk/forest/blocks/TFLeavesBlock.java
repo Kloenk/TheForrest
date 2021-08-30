@@ -8,5 +8,6 @@ public class TFLeavesBlock extends LeavesBlock {
         super(settings);
     }
 
+    // fire is a regisry?
     // TODO
 }

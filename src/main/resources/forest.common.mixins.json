@@ -9,7 +9,10 @@
     "HeightMapAccessor",
     "NoiseChunkGeneratorAccessor",
     "WorldAccessor",
-    "ChunkGeneratorSettingsAccessor"
+    "ChunkGeneratorSettingsAccessor",
+    "BlockTagsAccessor",
+    "DataMainAccessor",
+    "EntityAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

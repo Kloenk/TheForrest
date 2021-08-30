@@ -86,6 +86,12 @@ public class VanishingBlock extends Block {
     }
 
     @Override
+    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
+        if (world.isReceivingRedstonePower(pos))
+            setActive(world, pos, state);
+    }
+
+    @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (world.isClient) {
             return;

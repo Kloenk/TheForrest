@@ -1,5 +1,6 @@
 package dev.kloenk.forest;
 
+import dev.kloenk.forest.blocks.blockentities.TFBlockEntities;
 import dev.kloenk.forest.init.TFContent;
 import dev.kloenk.forest.world.dimension.TFDimension;
 import net.fabricmc.api.ModInitializer;
@@ -19,6 +20,7 @@ public class ForestMod implements ModInitializer {
     public void onInitialize() {
         TFContent.register();
         TFDimension.register();
+        TFBlockEntities.register();
 
         LOGGER.info("Registered");
     }
