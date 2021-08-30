@@ -1,6 +1,7 @@
 package dev.kloenk.forest.world.dimension.biom.feature;
 
 import com.mojang.serialization.Codec;
+import dev.kloenk.forest.blocks.TFBlocks;
 import dev.kloenk.forest.util.FeatureLogic;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -14,8 +15,8 @@ import java.util.Random;
 
 public class TFWoodRootsFeature extends Feature<DefaultFeatureConfig> {
     // TODO
-    private final BlockState rootBlock = Blocks.OAK_LOG.getDefaultState();
-    private final BlockState oreBlock = Blocks.DARK_OAK_LOG.getDefaultState();
+    private final BlockState rootBlock = TFBlocks.ROOT.getDefaultState();
+    private final BlockState oreBlock = TFBlocks.LIVEROOT.getDefaultState();
 
     public TFWoodRootsFeature(Codec<DefaultFeatureConfig> configCodec) {
         super(configCodec);
