@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import dev.kloenk.forest.ForestMod;
 import dev.kloenk.forest.mixin.ChunkGeneratorSettingsAccessor;
 import dev.kloenk.forest.world.dimension.biom.BiomeMaker;
+import dev.kloenk.forest.world.dimension.biom.carvers.TFConfiguredWorldCarvers;
 import dev.kloenk.forest.world.dimension.biom.feature.TFFeatures;
 import dev.kloenk.forest.world.dimension.generator.TFChunkGeneratorForest;
 import net.minecraft.block.Blocks;
@@ -21,6 +22,7 @@ public class TFDimension {
         TFFeatures.register();
 
         BiomeMaker.register();
+        TFConfiguredWorldCarvers.register();
 
         Registry.register(Registry.BIOME_SOURCE, ForestMod.path("grid"), TFBiomProvider.CODEC);
         Registry.register(Registry.CHUNK_GENERATOR, ForestMod.path("featured_noise"), TFChunkGeneratorForest.CODEC);

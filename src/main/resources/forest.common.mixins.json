@@ -16,7 +16,9 @@
     "BlockStateModelGeneratorAccessor",
     "EntityLootTableGeneratorInjector",
     "EntityLootTableGeneratorAccessor",
-    "BlockLootTableGeneratorInjector"
+    "BlockLootTableGeneratorInjector",
+    "CaveCarverConfigAccessor",
+    "CarverAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

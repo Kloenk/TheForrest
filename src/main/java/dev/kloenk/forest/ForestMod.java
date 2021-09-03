@@ -2,6 +2,7 @@ package dev.kloenk.forest;
 
 import dev.kloenk.forest.blocks.blockentities.TFBlockEntities;
 import dev.kloenk.forest.data.TFBlockTagsGenerator;
+import dev.kloenk.forest.data.TFConfiguredCaverGenerator;
 import dev.kloenk.forest.data.TFConfiguredFeatureGenerater;
 import dev.kloenk.forest.init.TFContent;
 import dev.kloenk.forest.world.dimension.TFDimension;
@@ -48,6 +49,7 @@ public class ForestMod implements ModInitializer {
         DataGenerator generator =  Main.create(output, Collections.singleton(input), true, true, true, true, true);
         generator.install(new TFBlockTagsGenerator(generator));
         generator.install(new TFConfiguredFeatureGenerater(generator));
+        generator.install(new TFConfiguredCaverGenerator(generator));
         // TODO: recipies
 
         try {

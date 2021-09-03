@@ -22,6 +22,7 @@ public class BiomeMaker extends BiomeHelper {
 
     private static void commonBiomes(ImmutableMap.Builder<RegistryKey<Biome>, Biome> biomes) {
         biomes.put(TFBiomeKeys.FOREST, biomeWithDefaults(
+                // TODO: firefly particles
                 defaultAmbientBuilder(),
                 defaultMobSpawning().playerSpawnFriendly(),
                 theForrestGen()

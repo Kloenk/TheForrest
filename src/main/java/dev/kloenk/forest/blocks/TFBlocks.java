@@ -100,6 +100,8 @@ public class TFBlocks {
     public static final Block TROLLBER_UNRIPE = new TrollRootBlock(FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.GRASS).noCollision().ticksRandomly());
     public static final Block TROLLBER = new TrollRootBlock(FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.GRASS).noCollision().luminance(15));
 
+    public static final Block TROLLSTEIN = new TrollsteinBlock(FabricBlockSettings.of(Material.STONE).requiresTool().strength(2f, 15f).sounds(BlockSoundGroup.STONE));
+
     // Thorns
     public static final Block THORNS_BROWN = new ThornsBlock(FabricBlockSettings.of(Material.WOOD, MapColor.SPRUCE_BROWN).strength(50f, 20000f).sounds(BlockSoundGroup.WOOD).dropsNothing());
     public static final Block THORNS_GREEN = new ThornsBlock(FabricBlockSettings.of(Material.WOOD, MapColor.DARK_GREEN).strength(50f, 20000f).sounds(BlockSoundGroup.WOOD).dropsNothing());

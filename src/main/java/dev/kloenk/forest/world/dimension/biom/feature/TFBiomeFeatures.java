@@ -15,11 +15,18 @@ import net.minecraft.world.gen.feature.FeatureConfig;
 
 public class TFBiomeFeatures {
     public static final Feature<DefaultFeatureConfig> WOOD_ROOTS = register("wood_roots", new TFWoodRootsFeature(DefaultFeatureConfig.CODEC));
+
     public static final Feature<DefaultFeatureConfig> WELL = register("well", new TFWellFeature(DefaultFeatureConfig.CODEC));
+
     public static final Feature<DefaultFeatureConfig> WEBS = register("webs", new TFWebsFeature(DefaultFeatureConfig.CODEC));
+
     public static final Feature<DefaultFeatureConfig> TROLL_ROOTS = register("troll_roots", new TFTrollRoots(DefaultFeatureConfig.CODEC));
+
     public static final Feature<DefaultFeatureConfig> TORCH_BERRIES = register("torch_berries", new TFGenTorchBerries(DefaultFeatureConfig.CODEC));
+
     public static final Feature<DefaultFeatureConfig> THORNS = register("thorns", new TFGenThorns(DefaultFeatureConfig.CODEC));
+
+    public static final Feature<DefaultFeatureConfig> HUGE_LILYPADS = register("huge_lilypads", new TFGenHugeLilyPad(DefaultFeatureConfig.CODEC));
 
 
     public static final Decorator<NopeDecoratorConfig> PLACEMENT_NOTFSTRUCTURE = new OutOfStructureFilter(NopeDecoratorConfig.CODEC);

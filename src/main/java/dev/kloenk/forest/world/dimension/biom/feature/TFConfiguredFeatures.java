@@ -19,6 +19,8 @@ public class TFConfiguredFeatures {
     public static final ConfiguredFeature<?, ?> TORCH_BERRIES;
     public static final ConfiguredFeature<?, ?> THORNS;
 
+    public static final ConfiguredFeature<?, ?> HUGE_LILYPAD;
+
     public static final ConfiguredDecorator<?> PLACEMENT_NOTFSTRUCTURE;
 
     private static <FC extends FeatureConfig>ConfiguredFeature<FC, ?> register(String path, ConfiguredFeature<FC, ?> configuredFeature) {
@@ -68,6 +70,11 @@ public class TFConfiguredFeatures {
                 // .decorated(TFFeatures.CONFIGURED_THORNLANDS_BLANKETING)
         );
 
+        HUGE_LILYPAD = register("huge_lilypad", TFBiomeFeatures.HUGE_LILYPADS.configure(new DefaultFeatureConfig())
+                .decorate(ConfiguredFeatures.Decorators.HEIGHTMAP_WORLD_SURFACE)
+                .applyChance(20)
+                .spreadHorizontally()
+        );
 
     }
 
