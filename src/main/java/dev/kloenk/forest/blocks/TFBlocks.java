@@ -206,6 +206,8 @@ public class TFBlocks {
         registerBlockAndItem("trollber_unripe", TROLLBER_UNRIPE);
         registerBlockAndItem("trollber", TROLLBER);
 
+        registerBlockAndItem("trollstein", TROLLSTEIN);
+
         // Thorns
         registerBlockAndItem("thorns_brown", THORNS_BROWN);
         registerBlockAndItem("thorns_green", THORNS_GREEN);

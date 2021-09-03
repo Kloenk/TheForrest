@@ -72,6 +72,8 @@ public class TFBlockLootTableGenerator {
         this.addDrop(TFBlocks.TROLLBER_UNRIPE);
         this.addDrop(TFBlocks.TROLLBER);
 
+        this.addDrop(TFBlocks.TROLLSTEIN);
+
         this.addDrop(TFBlocks.THORNS_LEAVES);
 
         this.addDrop(TFBlocks.VANISHING_BLOCK_WOOD);

@@ -170,5 +170,6 @@ public class BlockStateGenerator {
         this.registerSimpleState(TFBlocks.THORNS_ROSE);
         this.registerSimpleState(TFBlocks.VANISHING_BLOCK_WOOD);
         this.registerSimpleState(TFBlocks.REAPPEARING_BLOCK_WOOD);
+        this.registerSimpleState(TFBlocks.TROLLSTEIN);
     }
 }
