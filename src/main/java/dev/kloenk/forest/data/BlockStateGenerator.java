@@ -1,14 +1,22 @@
 package dev.kloenk.forest.data;
 
+import com.google.gson.JsonElement;
 import dev.kloenk.forest.blocks.TFBlocks;
 import dev.kloenk.forest.mixin.BlockStateModelGeneratorAccessor;
 import dev.kloenk.forest.mixin.BlockStateModelGeneratorInvoker;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.client.BlockStateDefinitionProvider;
-import net.minecraft.data.client.model.BlockStateModelGenerator;
-import net.minecraft.data.client.model.TexturedModel;
+import net.minecraft.data.client.model.*;
+import net.minecraft.data.family.BlockFamily;
+import net.minecraft.item.Item;
+import net.minecraft.util.Identifier;
+
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class BlockStateGenerator {
     public final BlockStateModelGenerator generator;
@@ -21,6 +29,26 @@ public class BlockStateGenerator {
         ((BlockStateModelGeneratorAccessor)generator).registerSimpleStateInvoker(block);
     }
 
+    public void registerItemModel(Block block) {
+        ((BlockStateModelGeneratorAccessor)generator).registerItemModelInvoker(block);
+    }
+
+    public void registerStateWithModelReference(Block block, Block reference) {
+        ((BlockStateModelGeneratorAccessor)generator).registerStateWithModelReferenceInvoker(block, reference);
+    }
+
+    static VariantsBlockStateSupplier createSingletonBlockState(Block block, Identifier modelId) {
+        return VariantsBlockStateSupplier.create(block, BlockStateVariant.create().put(VariantSettings.MODEL, modelId));
+    }
+
+    public Consumer<BlockStateSupplier> getBlockStateCollector() {
+        return ((BlockStateModelGeneratorAccessor)generator).getBlockStateCollector();
+    }
+
+    public BiConsumer<Identifier, Supplier<JsonElement>> getModelCollector() {
+        return ((BlockStateModelGeneratorAccessor)generator).getModelCollector();
+    }
+
     public BlockStateModelGenerator.LogTexturePool registerLog(Block block) {
         return ((BlockStateModelGeneratorAccessor)generator).registerLogInvoker(block);
     }
@@ -28,6 +56,14 @@ public class BlockStateGenerator {
     public void registerSingleton(Block block, TexturedModel.Factory modelFactory) {
         ((BlockStateModelGeneratorAccessor)generator).registerSingletonInvoker(block, modelFactory);
     }
+
+    public void registerParentedItemModel(Item item, Identifier parentModelId) {
+        ((BlockStateModelGeneratorAccessor)generator).registerParentedItemModelInvoker(item, parentModelId);
+    }
+
+    /*public void registerSingleton(Block block, Texture texture, Model model) {
+        ((BlockStateModelGeneratorAccessor)generator).registerSingletonInvoker(block, texture, model);
+    }*/
 
     public void register() {
         // TODO: block family and filter over simple blocks
@@ -58,13 +94,28 @@ public class BlockStateGenerator {
     }
 
     private void registerGiantBlocks() {
-        this.registerSimpleState(TFBlocks.GIANT_COBBLESTONE_BLOCK);
-        this.registerSimpleState(TFBlocks.GIANT_OBSIDIAN_BLOCK);
+        this.registerStateWithModelReference(TFBlocks.GIANT_COBBLESTONE_BLOCK, Blocks.COBBLESTONE);
+        this.registerStateWithModelReference(TFBlocks.GIANT_OBSIDIAN_BLOCK, Blocks.OBSIDIAN);
+
+        this.registerParentedItemModel(TFBlocks.GIANT_COBBLESTONE_BLOCK.asItem(), new Identifier("minecraft", "block/cobblestone"));
+        this.registerParentedItemModel(TFBlocks.GIANT_OBSIDIAN_BLOCK.asItem(), new Identifier("minecraft", "block/obsidian"));
+
+        //this.registerItemModel(TFBlocks.GIANT_COBBLESTONE_BLOCK);
+        //this.registerItemModel(TFBlocks.GIANT_OBSIDIAN_BLOCK);
+        //this.registerSimpleState(TFBlocks.GIANT_COBBLESTONE_BLOCK);
+        //this.registerSimpleState(TFBlocks.GIANT_OBSIDIAN_BLOCK);
 
         // TODO: this should have states and a wood alterantive
-        this.registerSimpleState(TFBlocks.GIANT_LOG_BLOCK);
+        //this.registerSimpleState(TFBlocks.GIANT_LOG_BLOCK);
+        this.registerStateWithModelReference(TFBlocks.GIANT_LOG_BLOCK, Blocks.OAK_LOG);
+        this.registerParentedItemModel(TFBlocks.GIANT_LOG_BLOCK.asItem(), new Identifier("minecraft", "block/oak_log"));
 
-        this.registerSingleton(TFBlocks.GIANT_LEAVES_BLOCK, TexturedModel.LEAVES);
+        //this.getBlockStateCollector().accept(createSingletonBlockState(TFBlocks.GIANT_LEAVES_BLOCK, ));
+        //this.registerSingleton(TFBlocks.GIANT_LEAVES_BLOCK, TexturedModel.LEAVES);
+        this.registerStateWithModelReference(TFBlocks.GIANT_LEAVES_BLOCK, Blocks.OAK_LEAVES);
+        this.registerParentedItemModel(TFBlocks.GIANT_LEAVES_BLOCK.asItem(), new Identifier("minecraft", "block/oak_leaves"));
+
+        //this.registerSingleton(TFBlocks.GIANT_LEAVES_BLOCK, TexturedModel.LEAVES);
     }
 
     @Deprecated

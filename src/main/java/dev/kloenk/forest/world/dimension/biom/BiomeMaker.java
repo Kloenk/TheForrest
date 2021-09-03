@@ -26,7 +26,7 @@ public class BiomeMaker extends BiomeHelper {
                 defaultMobSpawning().playerSpawnFriendly(),
                 theForrestGen()
         ).build());
-        BuiltinRegistries.add(BuiltinRegistries.BIOME, )
+        //BuiltinRegistries.add(BuiltinRegistries.BIOME, )
     }
 
     public static void register() {

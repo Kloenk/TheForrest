@@ -8,6 +8,7 @@ import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.decorator.ConfiguredDecorator;
 import net.minecraft.world.gen.decorator.NopeDecoratorConfig;
+import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.*;
 
 public class TFConfiguredFeatures {
@@ -29,14 +30,44 @@ public class TFConfiguredFeatures {
     }
 
     static {
-        WOOD_ROOTS_SPREAD = register("ore/wood_roots_spread", TFBiomeFeatures.WOOD_ROOTS.configure(new DefaultFeatureConfig()));
-        WELL = register("well", TFBiomeFeatures.WELL.configure(new DefaultFeatureConfig()));
-        WEBS = register("webs", TFBiomeFeatures.WEBS.configure(new DefaultFeatureConfig()));
-        TROLL_ROOTS = register("troll_roots", TFBiomeFeatures.TROLL_ROOTS.configure(new DefaultFeatureConfig()));
-        TORCH_BERRIES = register("torch_berries", TFBiomeFeatures.TORCH_BERRIES.configure(new DefaultFeatureConfig()));
-        THORNS = register("thorns", TFBiomeFeatures.THORNS.configure(new DefaultFeatureConfig()));
-
         PLACEMENT_NOTFSTRUCTURE = TFBiomeFeatures.PLACEMENT_NOTFSTRUCTURE.configure(NopeDecoratorConfig.INSTANCE);
+
+        WOOD_ROOTS_SPREAD = register("ore/wood_roots_spread", TFBiomeFeatures.WOOD_ROOTS.configure(new DefaultFeatureConfig())
+                .decorate(PLACEMENT_NOTFSTRUCTURE)
+                .range(ConfiguredFeatures.Decorators.BOTTOM_TO_60)
+                .applyChance(30)
+                .spreadHorizontally()
+                .repeat(20));
+
+        WELL = register("well", TFBiomeFeatures.WELL.configure(new DefaultFeatureConfig())
+                .decorate(PLACEMENT_NOTFSTRUCTURE)
+                .decorate(ConfiguredFeatures.Decorators.HEIGHTMAP_WORLD_SURFACE)
+                .applyChance(90)
+        );
+
+        WEBS = register("webs", TFBiomeFeatures.WEBS.configure(new DefaultFeatureConfig())
+                .decorate(ConfiguredFeatures.Decorators.HEIGHTMAP_WORLD_SURFACE)
+                .spreadHorizontally()
+                .applyChance(60)
+        );
+
+        TROLL_ROOTS = register("troll_roots", TFBiomeFeatures.TROLL_ROOTS.configure(new DefaultFeatureConfig())
+                .decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP)
+                .range(ConfiguredFeatures.Decorators.BOTTOM_TO_60)
+                .applyChance(4)
+                .spreadHorizontally()
+        );
+
+        TORCH_BERRIES = register("torch_berries", TFBiomeFeatures.TORCH_BERRIES.configure(new DefaultFeatureConfig())
+                .decorate(ConfiguredFeatures.Decorators.SQUARE_TOP_SOLID_HEIGHTMAP)
+                .range(ConfiguredFeatures.Decorators.BOTTOM_TO_60)
+                .applyChance(4)
+        );
+
+        THORNS = register("thorns", TFBiomeFeatures.THORNS.configure(new DefaultFeatureConfig())
+                // .decorated(TFFeatures.CONFIGURED_THORNLANDS_BLANKETING)
+        );
+
 
     }
 

@@ -43,6 +43,7 @@ public class GiantBlock extends Block {
 
     @Override
     public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
+        // TODO: particles
         super.onBroken(world, pos, state);
         if (/*!this.isSelfDesctructing &&*/ !isVolumeCleared(world, pos)) {
             this.setGiantBlockToAir(world, pos);
@@ -51,6 +52,7 @@ public class GiantBlock extends Block {
 
     @Override
     public void onDestroyedByExplosion(World world, BlockPos pos, Explosion explosion) {
+        // TODO: particles
         super.onDestroyedByExplosion(world, pos, explosion);
         if (/*!this.isSelfDesctructing && */!isVolumeCleared(world, pos)) {
             this.setGiantBlockToAir(world, pos);
