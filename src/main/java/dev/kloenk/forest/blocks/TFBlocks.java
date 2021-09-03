@@ -94,6 +94,9 @@ public class TFBlocks {
     public static final Block FIRE_JET = new FireJetBlock(FabricBlockSettings.of(Material.STONE, MapColor.PALE_GREEN).strength(1.5f, 0f).sounds(BlockSoundGroup.WOOD).ticksRandomly());
     public static final Block FIRE_JET_ENCASED = new EncasedFireJetBlock(FabricBlockSettings.of(Material.WOOD, MapColor.PALE_YELLOW).requiresTool().strength(1.5f, 0f).sounds(BlockSoundGroup.WOOD).lightLevel(15));
 
+    public static final Block NAGA_STONE = new NagastoneBlock(FabricBlockSettings.of(Material.STONE).requiresTool().strength(1.5f, 10f).sounds(BlockSoundGroup.STONE));
+    public static final Block NAGA_STONE_HEAD = new TFHorizontalBlock(FabricBlockSettings.of(Material.STONE).requiresTool().strength(1.5f, 10f).sounds(BlockSoundGroup.STONE));
+
     // Troll Roots
     public static final Block TROLLVIDR = new TrollRootBlock(FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.GRASS).noCollision());
     // TODO: replace with new UnripeTorchClusterBlock(BlockBehaviour.Properties.of(Material.PLANT).sound(SoundType.GRASS).noCollission().randomTicks()));
@@ -200,6 +203,10 @@ public class TFBlocks {
         // FireJets
         registerBlockAndItem("fire_jet", FIRE_JET);
         registerBlockAndItem("fire_jet_encased", FIRE_JET_ENCASED);
+
+        // Naga
+        registerBlockAndItem("naga_stone", NAGA_STONE);
+        registerBlockAndItem("naga_stone_head", NAGA_STONE_HEAD);
 
         // Troll Roots
         registerBlockAndItem("trollvidr", TROLLVIDR);

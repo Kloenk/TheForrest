@@ -1,22 +1,29 @@
 package dev.kloenk.forest.data;
 
 import com.google.gson.JsonElement;
+import dev.kloenk.forest.blocks.NagastoneBlock;
 import dev.kloenk.forest.blocks.TFBlocks;
 import dev.kloenk.forest.mixin.BlockStateModelGeneratorAccessor;
 import dev.kloenk.forest.mixin.BlockStateModelGeneratorInvoker;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.enums.WallMountLocation;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.client.BlockStateDefinitionProvider;
 import net.minecraft.data.client.model.*;
 import net.minecraft.data.family.BlockFamily;
 import net.minecraft.item.Item;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
+import org.lwjgl.system.CallbackI;
 
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 public class BlockStateGenerator {
     public final BlockStateModelGenerator generator;
@@ -61,6 +68,10 @@ public class BlockStateGenerator {
         ((BlockStateModelGeneratorAccessor)generator).registerParentedItemModelInvoker(item, parentModelId);
     }
 
+    public static List<BlockStateVariant> buildBlockStateVariants(List<Identifier> modelIds, UnaryOperator<BlockStateVariant> processor) {
+        return BlockStateModelGeneratorAccessor.buildBlockStateVariantsInvoker(modelIds, processor);
+    }
+
     /*public void registerSingleton(Block block, Texture texture, Model model) {
         ((BlockStateModelGeneratorAccessor)generator).registerSingletonInvoker(block, texture, model);
     }*/
@@ -70,6 +81,7 @@ public class BlockStateGenerator {
         registerLogs();
         registerLeaves();
         registerGiantBlocks();
+        registerNagaStone();
 
         registerSimpleSimple();
     }
@@ -171,5 +183,183 @@ public class BlockStateGenerator {
         this.registerSimpleState(TFBlocks.VANISHING_BLOCK_WOOD);
         this.registerSimpleState(TFBlocks.REAPPEARING_BLOCK_WOOD);
         this.registerSimpleState(TFBlocks.TROLLSTEIN);
+    }
+
+    private void registerNagaStone() {
+        this.getBlockStateCollector()
+                .accept(
+                        VariantsBlockStateSupplier.create(
+                                TFBlocks.NAGA_STONE,
+                                BlockStateVariant.create().put(
+                                        VariantSettings.MODEL,
+                                        ModelIds.getBlockModelId(TFBlocks.NAGA_STONE)
+                                )
+                        ).coordinate(
+                                BlockStateVariantMap
+                                        .create(NagastoneBlock.VARIANT)
+                                        .register(
+                                                NagastoneBlock.Variant.SOLID,
+                                                BlockStateVariant.create()
+                                        )
+                                        .register(
+                                                NagastoneBlock.Variant.NORTH_DOWN,
+                                                BlockStateVariant.create()
+                                                        .put(
+                                                                VariantSettings.MODEL,
+                                                                ModelIds.getBlockSubModelId(TFBlocks.NAGA_STONE, "_down")
+                                                        ).put(
+                                                                VariantSettings.Y,
+                                                                VariantSettings.Rotation.R270
+                                                        )
+                                        )
+                                        .register(
+                                                NagastoneBlock.Variant.SOUTH_DOWN,
+                                                BlockStateVariant.create()
+                                                        .put(
+                                                                VariantSettings.MODEL,
+                                                                ModelIds.getBlockSubModelId(TFBlocks.NAGA_STONE, "_down")
+                                                        )
+                                                        .put(
+                                                                VariantSettings.Y,
+                                                                VariantSettings.Rotation.R90
+                                                        )
+                                        )
+                                        .register(
+                                                NagastoneBlock.Variant.WEST_DOWN,
+                                                BlockStateVariant.create()
+                                                        .put(
+                                                                VariantSettings.MODEL,
+                                                                ModelIds.getBlockSubModelId(TFBlocks.NAGA_STONE, "_down")
+                                                        )
+                                                        .put(
+                                                                VariantSettings.Y,
+                                                                VariantSettings.Rotation.R180
+                                                        )
+                                        )
+                                        .register(
+                                                NagastoneBlock.Variant.EAST_DOWN,
+                                                BlockStateVariant.create()
+                                                        .put(
+                                                                VariantSettings.MODEL,
+                                                                ModelIds.getBlockSubModelId(TFBlocks.NAGA_STONE, "_down")
+                                                        )
+                                        )
+                                        .register(
+                                                NagastoneBlock.Variant.NORTH_UP,
+                                                BlockStateVariant.create()
+                                                        .put(
+                                                                VariantSettings.MODEL,
+                                                                ModelIds.getBlockSubModelId(TFBlocks.NAGA_STONE, "_up")
+                                                        )
+                                                        .put(
+                                                                VariantSettings.Y,
+                                                                VariantSettings.Rotation.R270
+                                                        )
+                                        )
+                                        .register(
+                                                NagastoneBlock.Variant.SOUTH_UP,
+                                                BlockStateVariant.create()
+                                                        .put(
+                                                                VariantSettings.MODEL,
+                                                                ModelIds.getBlockSubModelId(TFBlocks.NAGA_STONE, "_up")
+                                                        )
+                                                        .put(
+                                                                VariantSettings.Y,
+                                                                VariantSettings.Rotation.R90
+                                                        )
+                                        )
+                                        .register(
+                                                NagastoneBlock.Variant.WEST_UP,
+                                                BlockStateVariant.create()
+                                                        .put(
+                                                                VariantSettings.MODEL,
+                                                                ModelIds.getBlockSubModelId(TFBlocks.NAGA_STONE, "_up")
+                                                        )
+                                                        .put(
+                                                                VariantSettings.Y,
+                                                                VariantSettings.Rotation.R180
+                                                        )
+                                        )
+                                        .register(
+                                                NagastoneBlock.Variant.EAST_UP,
+                                                BlockStateVariant.create()
+                                                        .put(
+                                                                VariantSettings.MODEL,
+                                                                ModelIds.getBlockSubModelId(TFBlocks.NAGA_STONE, "_up")
+                                                        )
+                                        )
+                                        .register(
+                                                NagastoneBlock.Variant.AXIS_X,
+                                                BlockStateVariant.create()
+                                                        .put(
+                                                                VariantSettings.MODEL,
+                                                                ModelIds.getBlockSubModelId(TFBlocks.NAGA_STONE, "_herizontal")
+                                                        )
+                                        )
+                                        .register(
+                                                NagastoneBlock.Variant.AXIS_Y,
+                                                BlockStateVariant.create()
+                                                        .put(
+                                                                VariantSettings.MODEL,
+                                                                ModelIds.getBlockSubModelId(TFBlocks.NAGA_STONE, "_herizontal")
+                                                        )
+                                                        .put(
+                                                                VariantSettings.Y,
+                                                                VariantSettings.Rotation.R90
+                                                        )
+                                        )
+                                        .register(
+                                                NagastoneBlock.Variant.AXIS_Z,
+                                                BlockStateVariant.create()
+                                                        .put(
+                                                                VariantSettings.MODEL,
+                                                                ModelIds.getBlockSubModelId(TFBlocks.NAGA_STONE, "vertical")
+                                                        )
+                                        )
+                        )
+                );
+
+        this.getBlockStateCollector()
+                .accept(
+                        VariantsBlockStateSupplier.create(
+                                TFBlocks.NAGA_STONE_HEAD,
+                                BlockStateVariant.create().put(
+                                        VariantSettings.MODEL,
+                                        ModelIds.getBlockModelId(TFBlocks.NAGA_STONE_HEAD)
+                                )
+                        ).coordinate(
+                                BlockStateVariantMap
+                                        .create(Properties.HORIZONTAL_FACING)
+                                        .register(
+                                                Direction.NORTH,
+                                                BlockStateVariant.create()
+                                        )
+                                        .register(
+                                                Direction.SOUTH,
+                                                BlockStateVariant.create()
+                                                        .put(
+                                                                VariantSettings.Y,
+                                                                VariantSettings.Rotation.R180
+                                                        )
+                                        )
+                                        .register(
+                                                Direction.WEST,
+                                                BlockStateVariant.create()
+                                                        .put(
+                                                                VariantSettings.Y,
+                                                                VariantSettings.Rotation.R270
+                                                        )
+                                        )
+                                        .register(
+                                                Direction.EAST,
+                                                BlockStateVariant.create()
+                                                        .put(
+                                                                VariantSettings.Y,
+                                                                VariantSettings.Rotation.R90
+                                                        )
+                                        )
+                        )
+                );
+
     }
 }

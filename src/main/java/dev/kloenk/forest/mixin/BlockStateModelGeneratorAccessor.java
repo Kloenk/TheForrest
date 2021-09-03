@@ -10,9 +10,11 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 import java.util.IdentityHashMap;
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 @Mixin(BlockStateModelGenerator.class)
 public interface BlockStateModelGeneratorAccessor {
@@ -36,6 +38,11 @@ public interface BlockStateModelGeneratorAccessor {
 
     @Invoker("registerParentedItemModel")
     void registerParentedItemModelInvoker(Item item, Identifier parentModelId);
+
+    @Invoker("buildBlockStateVariants")
+    static List<BlockStateVariant> buildBlockStateVariantsInvoker(List<Identifier> modelIds, UnaryOperator<BlockStateVariant> processor) {
+        throw new IllegalStateException("Invoker not transformed");
+    }
 
     @Accessor
     Consumer<BlockStateSupplier> getBlockStateCollector();

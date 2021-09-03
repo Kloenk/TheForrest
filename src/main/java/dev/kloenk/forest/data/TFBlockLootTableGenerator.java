@@ -74,6 +74,9 @@ public class TFBlockLootTableGenerator {
 
         this.addDrop(TFBlocks.TROLLSTEIN);
 
+        this.addDrop(TFBlocks.NAGA_STONE);
+        this.addDrop(TFBlocks.NAGA_STONE_HEAD);
+
         this.addDrop(TFBlocks.THORNS_LEAVES);
 
         this.addDrop(TFBlocks.VANISHING_BLOCK_WOOD);
