@@ -1,80 +1,17 @@
 package dev.kloenk.forest.data;
 
-import com.google.gson.JsonElement;
-import dev.kloenk.forest.blocks.NagastoneBlock;
-import dev.kloenk.forest.blocks.TFBlocks;
-import dev.kloenk.forest.mixin.BlockStateModelGeneratorAccessor;
-import dev.kloenk.forest.mixin.BlockStateModelGeneratorInvoker;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import dev.kloenk.forest.blocks.*;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.enums.WallMountLocation;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.client.BlockStateDefinitionProvider;
 import net.minecraft.data.client.model.*;
-import net.minecraft.data.family.BlockFamily;
-import net.minecraft.item.Item;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
-import org.lwjgl.system.CallbackI;
 
-import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import java.util.function.UnaryOperator;
-
-public class BlockStateGenerator {
-    public final BlockStateModelGenerator generator;
-
-    public BlockStateGenerator(BlockStateModelGenerator generator) {
-        this.generator = generator;
+public class TFBlockStateGenerator extends TFBlockStateGeneratorHelper {
+    public TFBlockStateGenerator(BlockStateModelGenerator generator) {
+        super(generator);
     }
 
-    public void registerSimpleState(Block block) {
-        ((BlockStateModelGeneratorAccessor)generator).registerSimpleStateInvoker(block);
-    }
-
-    public void registerItemModel(Block block) {
-        ((BlockStateModelGeneratorAccessor)generator).registerItemModelInvoker(block);
-    }
-
-    public void registerStateWithModelReference(Block block, Block reference) {
-        ((BlockStateModelGeneratorAccessor)generator).registerStateWithModelReferenceInvoker(block, reference);
-    }
-
-    static VariantsBlockStateSupplier createSingletonBlockState(Block block, Identifier modelId) {
-        return VariantsBlockStateSupplier.create(block, BlockStateVariant.create().put(VariantSettings.MODEL, modelId));
-    }
-
-    public Consumer<BlockStateSupplier> getBlockStateCollector() {
-        return ((BlockStateModelGeneratorAccessor)generator).getBlockStateCollector();
-    }
-
-    public BiConsumer<Identifier, Supplier<JsonElement>> getModelCollector() {
-        return ((BlockStateModelGeneratorAccessor)generator).getModelCollector();
-    }
-
-    public BlockStateModelGenerator.LogTexturePool registerLog(Block block) {
-        return ((BlockStateModelGeneratorAccessor)generator).registerLogInvoker(block);
-    }
-
-    public void registerSingleton(Block block, TexturedModel.Factory modelFactory) {
-        ((BlockStateModelGeneratorAccessor)generator).registerSingletonInvoker(block, modelFactory);
-    }
-
-    public void registerParentedItemModel(Item item, Identifier parentModelId) {
-        ((BlockStateModelGeneratorAccessor)generator).registerParentedItemModelInvoker(item, parentModelId);
-    }
-
-    public static List<BlockStateVariant> buildBlockStateVariants(List<Identifier> modelIds, UnaryOperator<BlockStateVariant> processor) {
-        return BlockStateModelGeneratorAccessor.buildBlockStateVariantsInvoker(modelIds, processor);
-    }
-
-    /*public void registerSingleton(Block block, Texture texture, Model model) {
-        ((BlockStateModelGeneratorAccessor)generator).registerSingletonInvoker(block, texture, model);
-    }*/
 
     public void register() {
         // TODO: block family and filter over simple blocks
@@ -82,8 +19,100 @@ public class BlockStateGenerator {
         registerLeaves();
         registerGiantBlocks();
         registerNagaStone();
+        registerReapearingBlocks();
+        registerFireJet();
+        registerMazeStones();
+        registerSpawners();
+        registerThorns();
 
+        registerCrosses();
+        registerCubes();
+        registerColumns();
         registerSimpleSimple();
+
+        registerWithModelReferenceAndItem(TFBlocks.THORNS_LEAVES, Blocks.OAK_LEAVES);
+    }
+
+    @Deprecated
+    private void registerSimpleSimple() {
+
+        // TODO: Entities??
+        this.registerSimpleState(TFBlocks.FIREFLY_JAR);
+        this.registerSimpleState(TFBlocks.CICADA_JAR);
+
+        this.registerSimpleState(TFBlocks.MOSS_PATCH);
+        this.registerSimpleState(TFBlocks.CLOVER_PATCH);
+        this.registerSimpleState(TFBlocks.MAYAPPLE);
+        this.registerSimpleState(TFBlocks.FIDDLEHEAD);
+        this.registerSimpleState(TFBlocks.MUSHGLOOM);
+        this.registerSimpleState(TFBlocks.TORCHBERRY_PLANT);
+        this.registerSimpleState(TFBlocks.ROOT_STRAND);
+        this.registerSimpleState(TFBlocks.FALLEN_LEAVES);
+
+        this.registerSimpleState(TFBlocks.LIVEROOT);
+
+        this.registerSimpleState(TFBlocks.TROLLBER);
+        this.registerSimpleState(TFBlocks.TROLLBER_UNRIPE);
+
+        // FIXME: All this is not a simple block!!!
+        this.registerSimpleState(TFBlocks.FOREST_PORTAL);
+
+        this.registerSimpleState(TFBlocks.TROLLSTEIN);
+    }
+
+    private void registerCubes() {
+        this.registerSimpleCubeAll(TFBlocks.MAZE_STONE);
+        this.registerSimpleCubeAll(TFBlocks.MAZE_STONE_BRICK);
+        this.registerSimpleCubeAll(TFBlocks.MAZE_STONE_CRACKED);
+        this.registerSimpleCubeAll(TFBlocks.MAZE_STONE_MOSSY);
+
+        this.registerSimpleCubeAll(TFBlocks.HEDGE);
+
+        this.registerSimpleCubeAll(TFBlocks.ROOT);
+    }
+
+    private void registerCrosses() {
+        this.registerCrossBlock(TFBlocks.TROLLVIDR);
+        this.registerCrossBlock(TFBlocks.THORNS_ROSE);
+    }
+
+    private void registerColumns() {
+    }
+
+    private void registerThorns() {
+        registerThorn(TFBlocks.THORNS_GREEN);
+        registerThorn(TFBlocks.THORNS_BROWN);
+    }
+
+    private void registerMazeStones() {
+        registerMazeStoneBorder();
+        registerMazeStoneChiseled();
+        registerMazeStoneDecorative();
+        registerMazeStoneMosaic();
+    }
+
+    private void registerMazeStoneBorder() {
+        Texture texture = Texture.sideEnd(Texture.getId(TFBlocks.MAZE_STONE_BRICK), Texture.getId(TFBlocks.MAZE_STONE_BORDER));
+        Identifier identifier = Models.CUBE_COLUMN.upload(TFBlocks.MAZE_STONE_BORDER, texture, this.getModelCollector());
+        this.getBlockStateCollector().accept(createSingletonBlockState(TFBlocks.MAZE_STONE_BORDER, identifier));
+    }
+
+    private void registerMazeStoneChiseled() {
+        Texture texture = Texture.sideEnd(Texture.getId(TFBlocks.MAZE_STONE_CHISELED), Texture.getId(TFBlocks.MAZE_STONE));
+        Identifier identifier = Models.CUBE_COLUMN.upload(TFBlocks.MAZE_STONE_CHISELED, texture, this.getModelCollector());
+        this.getBlockStateCollector().accept(createSingletonBlockState(TFBlocks.MAZE_STONE_CHISELED, identifier));
+    }
+
+    private void registerMazeStoneDecorative() {
+        Texture texture = Texture.sideEnd(Texture.getId(TFBlocks.MAZE_STONE_DECORATIVE), Texture.getId(TFBlocks.MAZE_STONE));
+        Identifier identifier = Models.CUBE_COLUMN.upload(TFBlocks.MAZE_STONE_DECORATIVE, texture, this.getModelCollector());
+        this.getBlockStateCollector().accept(createSingletonBlockState(TFBlocks.MAZE_STONE_DECORATIVE, identifier));
+    }
+
+    private void registerMazeStoneMosaic() {
+        Texture texture = Texture.sideEnd(Texture.getId(TFBlocks.MAZE_STONE_BRICK), Texture.getId(TFBlocks.MAZE_STONE_MOSAIC));
+        Identifier identifier = Models.CUBE_COLUMN.upload(TFBlocks.MAZE_STONE_MOSAIC, texture, this.getModelCollector());
+        this.getBlockStateCollector().accept(createSingletonBlockState(TFBlocks.MAZE_STONE_MOSAIC, identifier));
     }
 
     private void registerLogs() {
@@ -105,6 +134,18 @@ public class BlockStateGenerator {
         this.registerSingleton(TFBlocks.RAINBOW_LEAVES, TexturedModel.LEAVES);
     }
 
+    public void registerSpawners() {
+        this.registerSpawner(TFBlocks.BOSS_SPAWNER_NAGA);
+        this.registerSpawner(TFBlocks.BOSS_SPAWNER_LICH);
+        this.registerSpawner(TFBlocks.BOSS_SPAWNER_HYDRA);
+        this.registerSpawner(TFBlocks.BOSS_SPAWNER_UR_GHAST);
+        this.registerSpawner(TFBlocks.BOSS_SPAWNER_KNIGHT_PHANTOM);
+        this.registerSpawner(TFBlocks.BOSS_SPAWNER_SNOW_QUEEN);
+        this.registerSpawner(TFBlocks.BOSS_SPAWNER_MINOSHROOM);
+        this.registerSpawner(TFBlocks.BOSS_SPAWNER_ALHPA_YETI);
+        this.registerSpawner(TFBlocks.BOSS_SPAWNER_FINAL_BOSS);
+    }
+
     private void registerGiantBlocks() {
         this.registerStateWithModelReference(TFBlocks.GIANT_COBBLESTONE_BLOCK, Blocks.COBBLESTONE);
         this.registerStateWithModelReference(TFBlocks.GIANT_OBSIDIAN_BLOCK, Blocks.OBSIDIAN);
@@ -112,77 +153,68 @@ public class BlockStateGenerator {
         this.registerParentedItemModel(TFBlocks.GIANT_COBBLESTONE_BLOCK.asItem(), new Identifier("minecraft", "block/cobblestone"));
         this.registerParentedItemModel(TFBlocks.GIANT_OBSIDIAN_BLOCK.asItem(), new Identifier("minecraft", "block/obsidian"));
 
-        //this.registerItemModel(TFBlocks.GIANT_COBBLESTONE_BLOCK);
-        //this.registerItemModel(TFBlocks.GIANT_OBSIDIAN_BLOCK);
-        //this.registerSimpleState(TFBlocks.GIANT_COBBLESTONE_BLOCK);
-        //this.registerSimpleState(TFBlocks.GIANT_OBSIDIAN_BLOCK);
-
         // TODO: this should have states and a wood alterantive
         //this.registerSimpleState(TFBlocks.GIANT_LOG_BLOCK);
         this.registerStateWithModelReference(TFBlocks.GIANT_LOG_BLOCK, Blocks.OAK_LOG);
         this.registerParentedItemModel(TFBlocks.GIANT_LOG_BLOCK.asItem(), new Identifier("minecraft", "block/oak_log"));
 
-        //this.getBlockStateCollector().accept(createSingletonBlockState(TFBlocks.GIANT_LEAVES_BLOCK, ));
-        //this.registerSingleton(TFBlocks.GIANT_LEAVES_BLOCK, TexturedModel.LEAVES);
         this.registerStateWithModelReference(TFBlocks.GIANT_LEAVES_BLOCK, Blocks.OAK_LEAVES);
         this.registerParentedItemModel(TFBlocks.GIANT_LEAVES_BLOCK.asItem(), new Identifier("minecraft", "block/oak_leaves"));
-
-        //this.registerSingleton(TFBlocks.GIANT_LEAVES_BLOCK, TexturedModel.LEAVES);
     }
 
-    @Deprecated
-    private void registerSimpleSimple() {
-        this.registerSimpleState(TFBlocks.MAZE_STONE);
-        this.registerSimpleState(TFBlocks.MAZE_STONE_BORDER);
-        this.registerSimpleState(TFBlocks.MAZE_STONE_BRICK);
-        this.registerSimpleState(TFBlocks.MAZE_STONE_CHISELED);
-        this.registerSimpleState(TFBlocks.MAZE_STONE_CRACKED);
-        this.registerSimpleState(TFBlocks.MAZE_STONE_DECORATIVE);
-        this.registerSimpleState(TFBlocks.MAZE_STONE_MOSAIC);
-        this.registerSimpleState(TFBlocks.MAZE_STONE_MOSSY);
-
-        this.registerSimpleState(TFBlocks.HEDGE);
-
-        this.registerSimpleState(TFBlocks.BOSS_SPAWNER_NAGA);
-        this.registerSimpleState(TFBlocks.BOSS_SPAWNER_LICH);
-        this.registerSimpleState(TFBlocks.BOSS_SPAWNER_HYDRA);
-        this.registerSimpleState(TFBlocks.BOSS_SPAWNER_UR_GHAST);
-        this.registerSimpleState(TFBlocks.BOSS_SPAWNER_KNIGHT_PHANTOM);
-        this.registerSimpleState(TFBlocks.BOSS_SPAWNER_SNOW_QUEEN);
-        this.registerSimpleState(TFBlocks.BOSS_SPAWNER_MINOSHROOM);
-        this.registerSimpleState(TFBlocks.BOSS_SPAWNER_ALHPA_YETI);
-        this.registerSimpleState(TFBlocks.BOSS_SPAWNER_FINAL_BOSS);
-
-        this.registerSimpleState(TFBlocks.FIREFLY_JAR);
-        this.registerSimpleState(TFBlocks.CICADA_JAR);
-
-        this.registerSimpleState(TFBlocks.MOSS_PATCH);
-        this.registerSimpleState(TFBlocks.CLOVER_PATCH);
-        this.registerSimpleState(TFBlocks.MAYAPPLE);
-        this.registerSimpleState(TFBlocks.FIDDLEHEAD);
-        this.registerSimpleState(TFBlocks.MUSHGLOOM);
-        this.registerSimpleState(TFBlocks.TORCHBERRY_PLANT);
-        this.registerSimpleState(TFBlocks.ROOT_STRAND);
-        this.registerSimpleState(TFBlocks.FALLEN_LEAVES);
-
-        this.registerSimpleState(TFBlocks.ROOT);
-        this.registerSimpleState(TFBlocks.LIVEROOT);
-
-        this.registerSimpleState(TFBlocks.TROLLVIDR);
-        this.registerSimpleState(TFBlocks.TROLLBER);
-        this.registerSimpleState(TFBlocks.TROLLBER_UNRIPE);
-
-        // FIXME: All this is not a simple block!!!
-        this.registerSimpleState(TFBlocks.FIRE_JET);
-        this.registerSimpleState(TFBlocks.FIRE_JET_ENCASED);
-        this.registerSimpleState(TFBlocks.FOREST_PORTAL);
-        this.registerSimpleState(TFBlocks.THORNS_BROWN);
-        this.registerSimpleState(TFBlocks.THORNS_GREEN);
-        this.registerSimpleState(TFBlocks.THORNS_LEAVES);
-        this.registerSimpleState(TFBlocks.THORNS_ROSE);
+    private void registerReapearingBlocks() {
+        // FIXME: better blockstates for VanishingBlocks
         this.registerSimpleState(TFBlocks.VANISHING_BLOCK_WOOD);
         this.registerSimpleState(TFBlocks.REAPPEARING_BLOCK_WOOD);
-        this.registerSimpleState(TFBlocks.TROLLSTEIN);
+        /*this.getBlockStateCollector()
+                .accept(
+                        VariantsBlockStateSupplier.create(
+                                TFBlocks.REAPPEARING_BLOCK_WOOD,
+                                BlockStateVariant.create().put(
+                                        VariantSettings.MODEL,
+                                        ModelIds.getBlockModelId(TFBlocks.REAPPEARING_BLOCK_WOOD)
+                                )
+                        ).coordinate(
+                                BlockStateVariantMap
+                                        .create(VanishingBlock.)
+                        )
+                );*/
+    }
+
+    private void registerFireJet() {
+        this.registerSimpleState(TFBlocks.FIRE_JET);
+
+        this.getBlockStateCollector()
+                .accept(
+                        VariantsBlockStateSupplier.create(
+                                TFBlocks.FIRE_JET_ENCASED,
+                                BlockStateVariant.create().put(
+                                        VariantSettings.MODEL,
+                                        ModelIds.getBlockModelId(TFBlocks.FIRE_JET_ENCASED)
+                                )
+                        ).coordinate(
+                                BlockStateVariantMap
+                                        .create(FireJetBlock.STATE)
+                                        .register(
+                                                FireJetBlock.FireJetVariant.IDLE,
+                                                BlockStateVariant.create()
+                                        )
+                                        .register(
+                                                FireJetBlock.FireJetVariant.POPPING,
+                                                BlockStateVariant.create().put(
+                                                        VariantSettings.MODEL,
+                                                        ModelIds.getBlockSubModelId(TFBlocks.FIRE_JET_ENCASED, "_on")
+                                                )
+                                        )
+                                        .register(
+                                                FireJetBlock.FireJetVariant.FLAME,
+                                                BlockStateVariant.create().put(
+                                                        VariantSettings.MODEL,
+                                                        ModelIds.getBlockSubModelId(TFBlocks.FIRE_JET_ENCASED, "_on")
+                                                )
+                                        )
+                        )
+                );
     }
 
     private void registerNagaStone() {

@@ -1,9 +1,8 @@
 package dev.kloenk.forest.mixin;
 
-import dev.kloenk.forest.data.BlockStateGenerator;
+import dev.kloenk.forest.data.TFBlockStateGenerator;
 import net.minecraft.data.client.model.BlockStateModelGenerator;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -12,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BlockStateModelGeneratorInvoker {
     @Inject(method = "register()V", at = @At("TAIL"))
     private void injected(CallbackInfo ci) {
-        BlockStateGenerator generator = new BlockStateGenerator((BlockStateModelGenerator) (Object) this);
+        TFBlockStateGenerator generator = new TFBlockStateGenerator((BlockStateModelGenerator) (Object) this);
         generator.register();
     }
 }

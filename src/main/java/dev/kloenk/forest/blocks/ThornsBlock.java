@@ -18,6 +18,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
+// FIXME: collision box
 public class ThornsBlock extends ConnectableRotatedPillarBlock implements Waterloggable {
     private static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
