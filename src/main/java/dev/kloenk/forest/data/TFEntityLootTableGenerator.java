@@ -1,6 +1,6 @@
 package dev.kloenk.forest.data;
 
-import dev.kloenk.forest.init.TFContent;
+import dev.kloenk.forest.entities.TFEntities;
 import dev.kloenk.forest.mixin.EntityLootTableGeneratorAccessor;
 import net.minecraft.data.server.EntityLootTableGenerator;
 import net.minecraft.entity.EntityType;
@@ -15,7 +15,14 @@ public class TFEntityLootTableGenerator {
     }
 
     public void register() {
-        this.register(TFContent.GIANT_MINER, LootTable.builder());
+        // TODO: lootTables
+
+        // Lich
+        this.register(TFEntities.LICH, LootTable.builder());
+        this.register(TFEntities.LICH_MINION, LootTable.builder());
+
+        // Giant
+        this.register(TFEntities.GIANT_MINER, LootTable.builder());
     }
 
     private void register(EntityType<?> entityType, Builder lootTable) {

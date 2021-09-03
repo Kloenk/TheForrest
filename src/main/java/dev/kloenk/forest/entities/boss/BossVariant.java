@@ -1,6 +1,7 @@
 package dev.kloenk.forest.entities.boss;
 
 import dev.kloenk.forest.blocks.blockentities.BossSpawnerBlockEntity;
+import dev.kloenk.forest.blocks.blockentities.TFBlockEntities;
 import net.minecraft.block.SkullBlock;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.StringIdentifiable;
