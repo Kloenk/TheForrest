@@ -1,6 +1,0 @@
-{
-  "variants": {
-    "current=true": { "model": "forest:block/reappearing_block_wood_on" },
-    "current=false": { "model":  "forest:block/reappearing_block_wood" }
-  }
-}

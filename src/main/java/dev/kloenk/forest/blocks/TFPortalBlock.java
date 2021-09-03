@@ -1,10 +1,8 @@
 package dev.kloenk.forest.blocks;
 
 import dev.kloenk.forest.ForestMod;
-import dev.kloenk.forest.TFConfig;
-import dev.kloenk.forest.data.BlockTagGenerator;
+import dev.kloenk.forest.data.TFBlockTagsGenerator;
 import dev.kloenk.forest.mixin.EntityAccessor;
-import dev.kloenk.forest.world.TFGenerationSettings;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
@@ -34,7 +32,6 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.mutable.MutableInt;
-import org.apache.logging.log4j.core.jmx.Server;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -121,7 +118,7 @@ public class TFPortalBlock extends TransparentBlock /*implements FluidFillable*/
     }
 
     public boolean canFormPortal(BlockState state) {
-        return state.isIn(BlockTagGenerator.PORTAL_POOL) || state.getBlock() == this && state.get(DISALLOW_RETURN);
+        return state.isIn(TFBlockTagsGenerator.PORTAL_POOL) || state.getBlock() == this && state.get(DISALLOW_RETURN);
     }
 
     private static void causeLightning(World world, BlockPos pos, boolean fake) {
@@ -172,11 +169,11 @@ public class TFPortalBlock extends TransparentBlock /*implements FluidFillable*/
     }
 
     private static boolean isNatureBlock(BlockState state) {
-        return BlockTagGenerator.PORTAL_DECO.contains(state.getBlock());
+        return TFBlockTagsGenerator.PORTAL_DECO.contains(state.getBlock());
     }
 
     private static boolean isGrassOrDirt(BlockState state) {
-        return BlockTagGenerator.PORTAL_EDGE.contains(state.getBlock());
+        return TFBlockTagsGenerator.PORTAL_EDGE.contains(state.getBlock());
     }
 
     @Override

@@ -11,8 +11,12 @@
     "WorldAccessor",
     "ChunkGeneratorSettingsAccessor",
     "BlockTagsAccessor",
-    "DataMainAccessor",
-    "EntityAccessor"
+    "EntityAccessor",
+    "BlockStateModelGeneratorInvoker",
+    "BlockStateModelGeneratorAccessor",
+    "EntityLootTableGeneratorInjector",
+    "EntityLootTableGeneratorAccessor",
+    "BlockLootTableGeneratorInjector"
   ],
   "injectors": {
     "defaultRequire": 1

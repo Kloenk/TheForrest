@@ -3,8 +3,8 @@ plugins {
     id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_16
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
@@ -14,12 +14,52 @@ loom {
     accessWidenerPath = file "src/main/resources/forest.accesswidener"
 
     runs {
+        forestClient {
+            client()
+            ideConfigGenerated project.rootProject == project
+            name = "Testmod Client"
+            source sourceSets.main
+        }
+        forestServer {
+            server()
+            ideConfigGenerated project.rootProject == project
+            name = "Testmod Server"
+            source sourceSets.main
+        }
         data {
+            client()
+            name = "Data Generator"
+
+            defaultMainClass("net.minecraft.data.Main")
+
+            //vmArgs = "-Dfabric.autoTest"
+            List<String> args = getVmArgs()
+            args.add("-Ddatagenerator=true")
+            args.add("-Dinput=" + file('src/generated/resources'))
+            args.add("-Doutput=" + file('src/generated/resources'))
+            vmArgs(args)
+            /*vmArgs(
+                    "-Ddatagenerator=true",
+                    "-Dinput=" + file('src/generated/resources',
+                    "-Doutput=" + file('src/generated/resources'
+            )))*/
+            //programArgs("net.minecraft.data.Main", "--help")
+
+            /*args = ['--mod', 'forest', '--all',
+                    '--existing', '"' + file('src/main/resources/') + '"',
+                    '--existing', '"' + file('src/generated/resources/') + '"',
+                    '--output', '"' + file('src/generated/resources') + '"']*/
+            //args '--mod'
+        }
+        /*data {
             //workingDirectory project.file('run')
 
             defaultMainClass = "net.minecraft.data.Main"
 
             environment = ""
+            minecraft {
+                dependencies = defaultTasks("")
+            }
             /*mods {
 
             }*/
@@ -27,9 +67,17 @@ loom {
                     '--existing', '"' + file('src/main/resources/') + '"',
                     '--existing', '"' + file('src/generated/resources/') + '"',
                     '--output', '"' + file('src/generated/resources') + '"']*/
-        }
+        //}*/
     }
 }
+
+idea {
+    project {
+        languageLevel = '16' // Not sure this is proper or even needed anymore, verify it
+    }
+}
+
+//java.toolchain.languageVersion = '16'
 
 dependencies {
     //to change the versions see the gradle.properties file
@@ -69,6 +117,14 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 
 jar {
     from "LICENSE"
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/generated/resources'
+        }
+    }
 }
 
 // configure the maven publication

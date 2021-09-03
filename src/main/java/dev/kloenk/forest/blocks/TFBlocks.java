@@ -94,6 +94,18 @@ public class TFBlocks {
     public static final Block FIRE_JET = new FireJetBlock(FabricBlockSettings.of(Material.STONE, MapColor.PALE_GREEN).strength(1.5f, 0f).sounds(BlockSoundGroup.WOOD).ticksRandomly());
     public static final Block FIRE_JET_ENCASED = new EncasedFireJetBlock(FabricBlockSettings.of(Material.WOOD, MapColor.PALE_YELLOW).requiresTool().strength(1.5f, 0f).sounds(BlockSoundGroup.WOOD).lightLevel(15));
 
+    // Troll Roots
+    public static final Block TROLLVIDR = new TrollRootBlock(FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.GRASS).noCollision());
+    // TODO: replace with new UnripeTorchClusterBlock(BlockBehaviour.Properties.of(Material.PLANT).sound(SoundType.GRASS).noCollission().randomTicks()));
+    public static final Block TROLLBER_UNRIPE = new TrollRootBlock(FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.GRASS).noCollision().ticksRandomly());
+    public static final Block TROLLBER = new TrollRootBlock(FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.GRASS).noCollision().luminance(15));
+
+    // Thorns
+    public static final Block THORNS_BROWN = new ThornsBlock(FabricBlockSettings.of(Material.WOOD, MapColor.SPRUCE_BROWN).strength(50f, 20000f).sounds(BlockSoundGroup.WOOD).dropsNothing());
+    public static final Block THORNS_GREEN = new ThornsBlock(FabricBlockSettings.of(Material.WOOD, MapColor.DARK_GREEN).strength(50f, 20000f).sounds(BlockSoundGroup.WOOD).dropsNothing());
+    public static final Block THORNS_ROSE = new ThornRoseBlock(FabricBlockSettings.of(Material.WOOD, MapColor.STONE_GRAY).strength(0.1f, 0f).sounds(BlockSoundGroup.SAND).dropsNothing());
+    public static final Block THORNS_LEAVES = new TFLeavesBlock(FabricBlockSettings.of(Material.LEAVES).strength(0.2f).ticksRandomly().nonOpaque().sounds(BlockSoundGroup.GRASS));
+
     // Vanishing
     public static final Block VANISHING_BLOCK_WOOD = new VanishingBlock(FabricBlockSettings.of(Material.WOOD, MapColor.YELLOW).strength(10, 35f).sounds(BlockSoundGroup.WOOD).lightLevel((state) -> state.get(VanishingBlock.ACTIVE) ? 4 : 0), true);
     public static final Block REAPPEARING_BLOCK_WOOD = new VanishingBlock(FabricBlockSettings.of(Material.WOOD, MapColor.YELLOW).strength(8, 35f).sounds(BlockSoundGroup.WOOD).lightLevel((state) -> state.get(VanishingBlock.ACTIVE) ? 4 : 0), false);
@@ -186,6 +198,17 @@ public class TFBlocks {
         // FireJets
         registerBlockAndItem("fire_jet", FIRE_JET);
         registerBlockAndItem("fire_jet_encased", FIRE_JET_ENCASED);
+
+        // Troll Roots
+        registerBlockAndItem("trollvidr", TROLLVIDR);
+        registerBlockAndItem("trollber_unripe", TROLLBER_UNRIPE);
+        registerBlockAndItem("trollber", TROLLBER);
+
+        // Thorns
+        registerBlockAndItem("thorns_brown", THORNS_BROWN);
+        registerBlockAndItem("thorns_green", THORNS_GREEN);
+        registerBlockAndItem("thorns_rose", THORNS_ROSE);
+        registerBlockAndItem("thorns_leaves", THORNS_LEAVES);
 
         // Vanishing
         registerBlockAndItem("vanishing_block_wood", VANISHING_BLOCK_WOOD);
