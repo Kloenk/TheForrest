@@ -2,8 +2,10 @@ package dev.kloenk.forest.entities;
 
 import dev.kloenk.forest.ForestMod;
 import dev.kloenk.forest.client.model.TFModels;
+import dev.kloenk.forest.client.model.entity.LichMinionModel;
 import dev.kloenk.forest.client.model.entity.LichModel;
 import dev.kloenk.forest.client.renderer.entity.LichRenderer;
+import dev.kloenk.forest.client.renderer.entity.TFBipedRenderer;
 import dev.kloenk.forest.entities.boss.LichEntity;
 import dev.kloenk.forest.entities.boss.LichMinionEntity;
 import net.fabricmc.api.EnvType;
@@ -86,7 +88,16 @@ public class TFEntities {
     private static void registerEntityRenderers() {
         // Lich
         EntityRendererRegistry.register(LICH, (ctx) -> new LichRenderer(ctx, new LichModel(ctx.getPart(TFModels.LICH)), 0.6F));
-        EntityRendererRegistry.register(LICH_MINION, (ctx) -> new ZombieEntityRenderer(ctx));
+        EntityRendererRegistry.register(LICH_MINION, ctx -> new TFBipedRenderer<>(
+                ctx,
+                new LichMinionModel(ctx.getPart(TFModels.LICH_MINION)),
+                // TODO
+                //new LichMinionModel(ctx.getPart(TFModels.ZOMBIE_INNER_ARMOR)),
+                //new LichMinionModel(ctx.getPart(TFModels.ZOMBIE_OUTER_ARMOR)),
+                0.5F,
+                "textures/entity/zombie/zombie.png"
+        ));
+        //EntityRendererRegistry.register(LICH_MINION, (ctx) -> new ZombieEntityRenderer(ctx));
 
         // Giant
         EntityRendererRegistry.register(GIANT_MINER, (ctx) -> new GiantMinerEntity.GiantMinerEntityRenderer<GiantMinerEntity>(ctx));

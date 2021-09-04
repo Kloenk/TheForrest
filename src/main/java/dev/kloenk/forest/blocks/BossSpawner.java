@@ -1,6 +1,6 @@
 package dev.kloenk.forest.blocks;
 
-import dev.kloenk.forest.blocks.blockentities.BossSpawnerBlockEntity;
+import dev.kloenk.forest.blocks.blockentities.spawner.BossSpawnerBlockEntity;
 import dev.kloenk.forest.entities.boss.BossVariant;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -43,8 +43,7 @@ public class BossSpawner extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        // TODO
-        return super.getTicker(world, state, type);
+        return checkType(type, variant.getType(), BossSpawnerBlockEntity::tick);
     }
 
 

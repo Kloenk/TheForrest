@@ -1,7 +1,7 @@
 package dev.kloenk.forest.entities.boss;
 
-import dev.kloenk.forest.blocks.blockentities.BossSpawnerBlockEntity;
 import dev.kloenk.forest.blocks.blockentities.TFBlockEntities;
+import dev.kloenk.forest.blocks.blockentities.spawner.BossSpawnerBlockEntity;
 import net.minecraft.block.SkullBlock;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.StringIdentifiable;
@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 public enum BossVariant implements StringIdentifiable, SkullBlock.SkullType {
     NAGA          (TrophyType.GOLD    , null),
-    LICH          (TrophyType.GOLD    , null),
+    LICH          (TrophyType.GOLD    , () -> TFBlockEntities.LICH_SPAWNER),
     HYDRA         (TrophyType.GOLD    , null),
     UR_GHAST      (TrophyType.GOLD    , null),
     KNIGHT_PHANTOM(TrophyType.IRON    , null),
