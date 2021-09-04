@@ -2,6 +2,7 @@ package dev.kloenk.forest.client.model;
 
 import dev.kloenk.forest.ForestMod;
 import dev.kloenk.forest.client.model.entity.LichModel;
+import dev.kloenk.forest.client.model.entity.TFGhastModel;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -11,15 +12,38 @@ import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.EntityModels;
+import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 public class TFModels {
-    public static final EntityModelLayer LICH = new EntityModelLayer(ForestMod.path("lich"), "main");
-    public static final EntityModelLayer LICH_MINION = new EntityModelLayer(ForestMod.path("lich_minion"), "main");
+    // Lich
+    public static final EntityModelLayer LICH = registerModel("lich");
+    public static final EntityModelLayer LICH_MINION = registerModel("lich_minion");
+
+    // Ghast
+    public static final EntityModelLayer CARMINITE_GHASTGUARD = registerModel("carminite_ghastguard");
+    public static final EntityModelLayer CARMINITE_GHASTLING = registerModel("carminite_ghastling");
 
     @Environment(EnvType.CLIENT)
     public static void registerClient() {
         // TODO: lich_MINION
+        // Lic
         EntityModelLayerRegistry.registerModelLayer(LICH, LichModel::create);
         EntityModelLayerRegistry.registerModelLayer(LICH_MINION, () -> TexturedModelData.of(BipedEntityModel.getModelData(Dilation.NONE, 0F), 64, 64));
+
+        // Ghast
+        EntityModelLayerRegistry.registerModelLayer(CARMINITE_GHASTGUARD, TFGhastModel::create);
+        EntityModelLayerRegistry.registerModelLayer(CARMINITE_GHASTLING, TFGhastModel::create);
+    }
+
+    @Contract(value = "_ -> new", pure = true)
+    private static @NotNull EntityModelLayer registerModel(String path) {
+        return registerModel(ForestMod.path(path), "main");
+    }
+
+    @Contract(value = "_, _ -> new", pure = true)
+    private static @NotNull EntityModelLayer registerModel(Identifier id, String part) {
+        return new EntityModelLayer(id, part);
     }
 }

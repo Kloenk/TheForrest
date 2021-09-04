@@ -21,6 +21,9 @@ public class TFEntityLootTableGenerator {
         this.register(TFEntities.LICH, LootTable.builder());
         this.register(TFEntities.LICH_MINION, LootTable.builder());
 
+        // Ghast
+        this.register(TFEntities.TOWER_GHAST, LootTable.builder());
+
         // Giant
         this.register(TFEntities.GIANT_MINER, LootTable.builder());
     }

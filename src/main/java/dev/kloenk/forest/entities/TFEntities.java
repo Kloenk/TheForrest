@@ -4,6 +4,8 @@ import dev.kloenk.forest.ForestMod;
 import dev.kloenk.forest.client.model.TFModels;
 import dev.kloenk.forest.client.model.entity.LichMinionModel;
 import dev.kloenk.forest.client.model.entity.LichModel;
+import dev.kloenk.forest.client.model.entity.TFGhastModel;
+import dev.kloenk.forest.client.renderer.entity.CarminiteGhastRenderer;
 import dev.kloenk.forest.client.renderer.entity.LichRenderer;
 import dev.kloenk.forest.client.renderer.entity.TFBipedRenderer;
 import dev.kloenk.forest.entities.boss.LichBoltEntity;
@@ -12,6 +14,7 @@ import dev.kloenk.forest.entities.boss.LichEntity;
 import dev.kloenk.forest.entities.boss.LichMinionEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -58,6 +61,14 @@ public class TFEntities {
                     .build()
     );
 
+    // Ghast
+    public static final EntityType<CarminiteGhastGuardEntity> TOWER_GHAST = registerEntityType(
+            "tower_ghast",
+            FabricEntityTypeBuilder.Mob.<CarminiteGhastGuardEntity>create(SpawnGroup.MONSTER, CarminiteGhastGuardEntity::new)
+                    .dimensions(EntityDimensions.fixed(4F, 6F))
+                    .build()
+    );
+
     // Giant
     public static final EntityType<GiantMinerEntity> GIANT_MINER = Registry.register(
             Registry.ENTITY_TYPE,
@@ -67,9 +78,13 @@ public class TFEntities {
     );
 
 
+    protected static final Item.Settings MISC_ITEM_GROUP = new Item.Settings().group(ItemGroup.MISC);
     // Lich
-    public static final Item LICH_SPAWN_EGG = new SpawnEggItem(LICH, 0xaca489, 0x360472, new Item.Settings().group(ItemGroup.MISC));
-    public static final Item LICH_MINION_SPAWN_EGG = new SpawnEggItem(LICH_MINION, 0xaca489, 0x360477, new Item.Settings().group(ItemGroup.MISC));
+    public static final Item LICH_SPAWN_EGG = new SpawnEggItem(LICH, 0xaca489, 0x360472, MISC_ITEM_GROUP);
+    public static final Item LICH_MINION_SPAWN_EGG = new SpawnEggItem(LICH_MINION, 0xaca489, 0x360477, MISC_ITEM_GROUP);
+
+    // Ghast
+    public static final Item TOWER_GHAST_SPAWN_EGG = new SpawnEggItem(TOWER_GHAST, 0xbcbcbc, 0xb77878, MISC_ITEM_GROUP);
 
     // Giant
     public static final Item GIANT_MINER_SPAWN_EGG = new SpawnEggItem(GIANT_MINER, 0x211b52, 0x9a9a9a, new Item.Settings().group(ItemGroup.MISC));
@@ -84,6 +99,9 @@ public class TFEntities {
         Registry.register(Registry.ITEM, ForestMod.path("lich_spawn_egg"), LICH_SPAWN_EGG);
         Registry.register(Registry.ITEM, ForestMod.path("lich_minion_spawn_egg"), LICH_MINION_SPAWN_EGG);
 
+        // Ghast
+        Registry.register(Registry.ITEM, ForestMod.path("tower_ghast_spawn_egg"), TOWER_GHAST_SPAWN_EGG);
+
         // Giant
         Registry.register(Registry.ITEM, ForestMod.path("giant_miner_spawn_egg"), GIANT_MINER_SPAWN_EGG);
     }
@@ -92,6 +110,9 @@ public class TFEntities {
         // Lich
         FabricDefaultAttributeRegistry.register(LICH, LichEntity.registerAttributes());
         FabricDefaultAttributeRegistry.register(LICH_MINION, LichMinionEntity.createZombieAttributes());
+
+        // Ghast
+        FabricDefaultAttributeRegistry.register(TOWER_GHAST, CarminiteGhastGuardEntity.registerAttributes());
 
         // Giant
         FabricDefaultAttributeRegistry.register(GIANT_MINER, GiantMinerEntity.createGiantMinerAttributes());
@@ -117,6 +138,9 @@ public class TFEntities {
         ));
         EntityRendererRegistry.register(LICH_BOLT, FlyingItemEntityRenderer::new);
         EntityRendererRegistry.register(LICH_BOMB, FlyingItemEntityRenderer::new);
+
+        // Ghast
+        EntityRendererRegistry.register(TOWER_GHAST, ctx -> new CarminiteGhastRenderer<>(ctx, new TFGhastModel<>(ctx.getPart(TFModels.CARMINITE_GHASTGUARD)), 3F));
 
         // Giant
         EntityRendererRegistry.register(GIANT_MINER, (ctx) -> new GiantMinerEntity.GiantMinerEntityRenderer<GiantMinerEntity>(ctx));
