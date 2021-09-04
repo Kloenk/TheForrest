@@ -12,6 +12,8 @@ import net.minecraft.data.Main;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -21,8 +23,16 @@ public class ForestMod implements ModInitializer {
     public static final String ID = "forest";
     public static final Logger LOGGER = LogManager.getFormatterLogger(ID);
 
-    public static Identifier path(String path) {
+    public static final String MODEL_DIR = "textures/model";
+
+    @Contract("_ -> new")
+    public static @NotNull Identifier path(String path) {
         return new Identifier(ID, path);
+    }
+
+    @Contract("_ -> new")
+    public static @NotNull Identifier modelTexture(String path) {
+        return path(MODEL_DIR + "/" + path);
     }
 
     @Override

@@ -23,7 +23,8 @@
     ]
   },
   "mixins": [
-    "forest.common.mixins.json"
+    "forest.common.mixins.json",
+    "forest.client.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.11.6",

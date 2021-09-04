@@ -1,10 +1,14 @@
 package dev.kloenk.forest.entities;
 
 import dev.kloenk.forest.ForestMod;
+import dev.kloenk.forest.client.model.TFModels;
+import dev.kloenk.forest.client.model.entity.LichModel;
+import dev.kloenk.forest.client.renderer.entity.LichRenderer;
 import dev.kloenk.forest.entities.boss.LichEntity;
 import dev.kloenk.forest.entities.boss.LichMinionEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -55,15 +59,6 @@ public class TFEntities {
         registerSpawnEggs();
     }
 
-    private static void registerEntityAttributes() {
-        // Lich
-        FabricDefaultAttributeRegistry.register(LICH, LichEntity.registerAttributes());
-        FabricDefaultAttributeRegistry.register(LICH_MINION, LichMinionEntity.createZombieAttributes());
-
-        // Giant
-        FabricDefaultAttributeRegistry.register(GIANT_MINER, GiantMinerEntity.createGiantMinerAttributes());
-    }
-
     private static void registerSpawnEggs() {
         // Lich
         Registry.register(Registry.ITEM, ForestMod.path("lich_spawn_egg"), LICH_SPAWN_EGG);
@@ -73,13 +68,24 @@ public class TFEntities {
         Registry.register(Registry.ITEM, ForestMod.path("giant_miner_spawn_egg"), GIANT_MINER_SPAWN_EGG);
     }
 
+    private static void registerEntityAttributes() {
+        // Lich
+        FabricDefaultAttributeRegistry.register(LICH, LichEntity.registerAttributes());
+        FabricDefaultAttributeRegistry.register(LICH_MINION, LichMinionEntity.createZombieAttributes());
+
+        // Giant
+        FabricDefaultAttributeRegistry.register(GIANT_MINER, GiantMinerEntity.createGiantMinerAttributes());
+    }
+
     @Environment(EnvType.CLIENT)
     public static void registerClient() {
+        TFModels.registerClient();
         registerEntityRenderers();
     }
 
     private static void registerEntityRenderers() {
         // Lich
+        EntityRendererRegistry.register(LICH, (ctx) -> new LichRenderer(ctx, new LichModel(ctx.getPart(TFModels.LICH)), 0.6F));
         EntityRendererRegistry.register(LICH_MINION, (ctx) -> new ZombieEntityRenderer(ctx));
 
         // Giant
