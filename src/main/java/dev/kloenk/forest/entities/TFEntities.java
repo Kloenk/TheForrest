@@ -6,38 +6,56 @@ import dev.kloenk.forest.client.model.entity.LichMinionModel;
 import dev.kloenk.forest.client.model.entity.LichModel;
 import dev.kloenk.forest.client.renderer.entity.LichRenderer;
 import dev.kloenk.forest.client.renderer.entity.TFBipedRenderer;
+import dev.kloenk.forest.entities.boss.LichBoltEntity;
+import dev.kloenk.forest.entities.boss.LichBombEntity;
 import dev.kloenk.forest.entities.boss.LichEntity;
 import dev.kloenk.forest.entities.boss.LichMinionEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.client.render.entity.ZombieEntityRenderer;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpawnEggItem;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 // TODO: spawnrules
 public class TFEntities {
     // Lich
-    public static final EntityType<LichEntity> LICH = Registry.register(
-            Registry.ENTITY_TYPE,
-            ForestMod.path("lich"),
-             FabricEntityTypeBuilder.Mob.<LichEntity>create(SpawnGroup.MONSTER, LichEntity::new)
-                     .fireImmune()
-                    .dimensions(EntityDimensions.fixed(1.1f, 2.1f)).build()
+    public static final EntityType<LichEntity> LICH = registerEntityType(
+            "lich",
+            FabricEntityTypeBuilder.Mob.<LichEntity>create(SpawnGroup.MONSTER, LichEntity::new)
+                    .fireImmune()
+                    .dimensions(EntityDimensions.fixed(1.1F, 2.1F))
+                    .build()
     );
-    public static final EntityType<LichMinionEntity> LICH_MINION = Registry.register(
-            Registry.ENTITY_TYPE,
-            ForestMod.path("lich_minion"),
+    public static final EntityType<LichMinionEntity> LICH_MINION = registerEntityType(
+            "lich_minion",
             FabricEntityTypeBuilder.Mob.<LichMinionEntity>create(SpawnGroup.MONSTER, LichMinionEntity::new)
-                    .dimensions(EntityDimensions.fixed(0.6f, 1.95f)).build()
+                    .dimensions(EntityDimensions.fixed(0.6f, 1.95f))
+                    .build()
+    );
+    public static final EntityType<LichBoltEntity> LICH_BOLT = registerEntityType(
+            "lich_bolt",
+            FabricEntityTypeBuilder.Mob.<LichBoltEntity>create(SpawnGroup.MISC, LichBoltEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.25F, 0.25F))
+                    .trackRangeBlocks(150)
+                    .trackedUpdateRate(2)
+                    .build()
+    );
+    public static final EntityType<LichBombEntity> LICH_BOMB = registerEntityType(
+            "lich_bomb",
+            FabricEntityTypeBuilder.Mob.<LichBombEntity>create(SpawnGroup.MISC, LichBombEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.25F, 0.25F))
+                    .trackRangeBlocks(150)
+                    .build()
     );
 
     // Giant
@@ -97,9 +115,22 @@ public class TFEntities {
                 0.5F,
                 "textures/entity/zombie/zombie.png"
         ));
-        //EntityRendererRegistry.register(LICH_MINION, (ctx) -> new ZombieEntityRenderer(ctx));
+        EntityRendererRegistry.register(LICH_BOLT, FlyingItemEntityRenderer::new);
+        EntityRendererRegistry.register(LICH_BOMB, FlyingItemEntityRenderer::new);
 
         // Giant
         EntityRendererRegistry.register(GIANT_MINER, (ctx) -> new GiantMinerEntity.GiantMinerEntityRenderer<GiantMinerEntity>(ctx));
+    }
+
+    protected static <E extends Entity, T extends EntityType<E>> T registerEntityType(String path, T type) {
+        return registerEntityType(ForestMod.path(path), type);
+    }
+
+    protected static <E extends Entity, T extends EntityType<E>> T registerEntityType(Identifier id, T type) {
+        return Registry.register(
+                Registry.ENTITY_TYPE,
+                id,
+                type
+        );
     }
 }

@@ -2,7 +2,6 @@ package dev.kloenk.forest.blocks.blockentities;
 
 import dev.kloenk.forest.ForestMod;
 import dev.kloenk.forest.blocks.TFBlocks;
-import dev.kloenk.forest.blocks.blockentities.spawner.BossSpawnerBlockEntity;
 import dev.kloenk.forest.blocks.blockentities.spawner.LichSpawnerBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntityType;

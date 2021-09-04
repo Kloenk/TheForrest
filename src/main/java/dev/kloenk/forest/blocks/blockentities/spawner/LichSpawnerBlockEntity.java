@@ -3,9 +3,7 @@ package dev.kloenk.forest.blocks.blockentities.spawner;
 import dev.kloenk.forest.blocks.blockentities.TFBlockEntities;
 import dev.kloenk.forest.entities.TFEntities;
 import dev.kloenk.forest.entities.boss.LichEntity;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.data.client.model.BlockStateSupplier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 

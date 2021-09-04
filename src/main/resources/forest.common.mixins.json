@@ -18,7 +18,8 @@
     "EntityLootTableGeneratorAccessor",
     "BlockLootTableGeneratorInjector",
     "CaveCarverConfigAccessor",
-    "CarverAccessor"
+    "CarverAccessor",
+    "DamageSourceAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

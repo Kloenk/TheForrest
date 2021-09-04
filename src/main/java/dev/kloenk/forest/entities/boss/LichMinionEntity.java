@@ -45,27 +45,27 @@ public class LichMinionEntity extends ZombieEntity {
     @Override
     protected SoundEvent getAmbientSound() {
         //return TFSounds.MINION_AMBIENT;
-        // TODO
+        // TODO: sound
         return super.getAmbientSound();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        // TODO
+        // TODO: sound
         //return TFSounds.MINION_HURT;
         return super.getHurtSound(source);
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        // TODO
+        // TODO: sound
         //return TFSounds.MINION_DEATH;
         return super.getDeathSound();
     }
 
     @Override
     protected SoundEvent getStepSound() {
-        // TODO
+        // TODO: sound
         //return TFSounds.MINION_STEP;
         return super.getStepSound();
     }

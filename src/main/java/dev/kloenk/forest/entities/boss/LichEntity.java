@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableSet;
 import dev.kloenk.forest.ForestMod;
 import dev.kloenk.forest.blocks.TFBlocks;
 import dev.kloenk.forest.entities.TFEntities;
+import dev.kloenk.forest.entities.ai.LichMinionGoal;
+import dev.kloenk.forest.entities.ai.LichShadowsGoal;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
@@ -42,6 +44,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Set;
 
+
+// FIXME: check all dmaageSource (getAttacker)
+// FIXME: seems to not take damage at all
 public class LichEntity extends HostileEntity {
 
     public static final Identifier LOOT_TABLE = ForestMod.path("entities/lich");
@@ -52,7 +57,7 @@ public class LichEntity extends HostileEntity {
             EndermanEntity.class,
             SpiderEntity.class,
             CreeperEntity.class
-            // TODO
+            // TODO: SwarmSpiderEntity
             //SwarmSpiderEntity.class
     );
 
@@ -76,7 +81,6 @@ public class LichEntity extends HostileEntity {
 
         setShadowClone(false);
         this.masterLich = null;
-        // FIXME: set to fire immute (fireImune is just an getter)
         this.experiencePoints = 217;
     }
 
@@ -109,9 +113,8 @@ public class LichEntity extends HostileEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
-        // TODO
-        /*this.goalSelector.addGoal(1, new LichShadowsGoal(this));
-        this.goalSelector.addGoal(2, new LichMinionsGoal(this));*/
+        this.goalSelector.add(1, new LichShadowsGoal(this));
+        this.goalSelector.add(2, new LichMinionGoal(this));
         this.goalSelector.add(3, new MeleeAttackGoal(this, 0.7D, true) {
             @Override
             public boolean canStart() {
@@ -164,10 +167,10 @@ public class LichEntity extends HostileEntity {
 
     @Override
     public void checkDespawn() {
-        // TODO: also create new boss_spawner_lich when not peaceful?
         if (world.getDifficulty() == Difficulty.PEACEFUL && !isShadowClone()) {
             if (hasPositionTarget()) {
                 world.setBlockState(getPositionTarget(), TFBlocks.BOSS_SPAWNER_LICH.getDefaultState());
+                super.checkDespawn();
             }
         } else {
             super.checkDespawn();
@@ -339,11 +342,9 @@ public class LichEntity extends HostileEntity {
         // TODO: sounds
         //playSound(TFSounds.LICH_SHOOT, getSoundVolume(), (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
 
-        // TODO: LichBoltEntity
-        //LichBoltEntity projectile = new LichBoltEntity(TFEntities.lich_bolt, level, this);
-        FireballEntity projectile = new FireballEntity(world, this, sx, sy, sz, 2);
-        /*projectile.moveTo(sx, sy, sz, yRot, xRot);
-        projectile.shoot(tx, ty, tz, 0.5F, 1.0F);*/
+        LichBoltEntity projectile = new LichBoltEntity(TFEntities.LICH_BOLT, world, this);
+        projectile.refreshPositionAndAngles(sx, sy, sz, getYaw(), getPitch());
+        projectile.setVelocity(tx, ty, tz, 0.5F, 1F);
 
         world.spawnEntity(projectile);
     }
@@ -362,10 +363,9 @@ public class LichEntity extends HostileEntity {
         //playSound(TFSounds.LICH_SHOOT, getSoundVolume(), (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
 
         // TODO: lichBombEntity
-        /*LichBombEntity projectile = new LichBombEntity(TFEntities.lich_bomb, level, this);
-        projectile.moveTo(sx, sy, sz, yRot, xRot);
-        projectile.shoot(tx, ty, tz, 0.35F, 1.0F);*/
-        FireballEntity projectile = new FireballEntity(world, this, sx, sy, sz, 2);
+        LichBombEntity projectile = new LichBombEntity(TFEntities.LICH_BOMB, world, this);
+        projectile.refreshPositionAndAngles(sx, sy, sz, getYaw(), getPitch());
+        projectile.setVelocity(tx, ty, tz, 0.35F, 1.0F);
 
         world.spawnEntity(projectile);
     }
