@@ -14,7 +14,7 @@ public enum BossVariant implements StringIdentifiable, SkullBlock.SkullType {
     NAGA          (TrophyType.GOLD    , null),
     LICH          (TrophyType.GOLD    , () -> TFBlockEntities.LICH_SPAWNER),
     HYDRA         (TrophyType.GOLD    , null),
-    UR_GHAST      (TrophyType.GOLD    , null),
+    UR_GHAST      (TrophyType.GOLD    , () -> TFBlockEntities.Ur_GHAST_SPAWNER),
     KNIGHT_PHANTOM(TrophyType.IRON    , null),
     SNOW_QUEEN    (TrophyType.GOLD    , null),
     MINOSHROOM    (TrophyType.IRON    , null),

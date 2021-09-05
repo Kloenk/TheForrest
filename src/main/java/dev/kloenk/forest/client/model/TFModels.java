@@ -3,6 +3,7 @@ package dev.kloenk.forest.client.model;
 import dev.kloenk.forest.ForestMod;
 import dev.kloenk.forest.client.model.entity.LichModel;
 import dev.kloenk.forest.client.model.entity.TFGhastModel;
+import dev.kloenk.forest.client.model.entity.UrGhastModel;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -22,6 +23,7 @@ public class TFModels {
     public static final EntityModelLayer LICH_MINION = registerModel("lich_minion");
 
     // Ghast
+    public static final EntityModelLayer UR_GHAST = registerModel("ur_ghast");
     public static final EntityModelLayer CARMINITE_GHASTGUARD = registerModel("carminite_ghastguard");
     public static final EntityModelLayer CARMINITE_GHASTLING = registerModel("carminite_ghastling");
 
@@ -33,6 +35,7 @@ public class TFModels {
         EntityModelLayerRegistry.registerModelLayer(LICH_MINION, () -> TexturedModelData.of(BipedEntityModel.getModelData(Dilation.NONE, 0F), 64, 64));
 
         // Ghast
+        EntityModelLayerRegistry.registerModelLayer(UR_GHAST, UrGhastModel::create);
         EntityModelLayerRegistry.registerModelLayer(CARMINITE_GHASTGUARD, TFGhastModel::create);
         EntityModelLayerRegistry.registerModelLayer(CARMINITE_GHASTLING, TFGhastModel::create);
     }

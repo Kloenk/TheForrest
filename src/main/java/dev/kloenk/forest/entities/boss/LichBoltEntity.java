@@ -99,25 +99,20 @@ public class LichBoltEntity extends TFThrowableEntity implements FlyingItemEntit
         }
     }
 
-    @Override
-    protected void onCollision(HitResult hitResult) {
-        if (hitResult instanceof EntityHitResult) {
-            Entity entity = ((EntityHitResult)hitResult).getEntity();
-            if (entity instanceof LichBoltEntity
-                    || entity instanceof LichBombEntity
-                    || (entity instanceof LichEntity && ((LichEntity) entity).isShadowClone()) ) {
-                return;
-            }
 
-            if (!this.world.isClient) {
-                if (entity instanceof LivingEntity) {
-                    entity.damage(TFDamagesources.LICH_BOLT, 6);
-                }
-                this.world.sendEntityStatus(this, (byte) 3);
-                this.discard();
+    @Override
+    protected void onEntityHit(EntityHitResult entityHitResult) {
+        if (entityHitResult.getEntity() instanceof LichBombEntity
+                || entityHitResult.getEntity() instanceof LichBombEntity
+                || entityHitResult.getEntity() instanceof LichEntity)
+            return;
+        if (!this.world.isClient) {
+            if (entityHitResult.getEntity() instanceof LivingEntity entity) {
+                entity.damage(TFDamagesources.LICH_BOLT, 6);
             }
+            this.world.sendEntityStatus(this, (byte) 3);
+            this.discard();
         }
-        super.onCollision(hitResult);
     }
 
     @Override

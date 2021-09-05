@@ -5,13 +5,12 @@ import dev.kloenk.forest.client.model.TFModels;
 import dev.kloenk.forest.client.model.entity.LichMinionModel;
 import dev.kloenk.forest.client.model.entity.LichModel;
 import dev.kloenk.forest.client.model.entity.TFGhastModel;
+import dev.kloenk.forest.client.model.entity.UrGhastModel;
 import dev.kloenk.forest.client.renderer.entity.CarminiteGhastRenderer;
 import dev.kloenk.forest.client.renderer.entity.LichRenderer;
 import dev.kloenk.forest.client.renderer.entity.TFBipedRenderer;
-import dev.kloenk.forest.entities.boss.LichBoltEntity;
-import dev.kloenk.forest.entities.boss.LichBombEntity;
-import dev.kloenk.forest.entities.boss.LichEntity;
-import dev.kloenk.forest.entities.boss.LichMinionEntity;
+import dev.kloenk.forest.client.renderer.entity.UrGhastRenderer;
+import dev.kloenk.forest.entities.boss.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -28,6 +27,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+
+import java.net.URI;
 
 // TODO: spawnrules
 public class TFEntities {
@@ -62,6 +63,12 @@ public class TFEntities {
     );
 
     // Ghast
+    public static final EntityType<UrGhastEntity> UR_GHAST = registerEntityType(
+            "ur_ghast",
+            FabricEntityTypeBuilder.Mob.<UrGhastEntity>create(SpawnGroup.MONSTER, UrGhastEntity::new)
+                    .dimensions(EntityDimensions.fixed(14F, 18F))
+                    .build()
+    );
     public static final EntityType<CarminiteGhastGuardEntity> TOWER_GHAST = registerEntityType(
             "tower_ghast",
             FabricEntityTypeBuilder.Mob.<CarminiteGhastGuardEntity>create(SpawnGroup.MONSTER, CarminiteGhastGuardEntity::new)
@@ -84,6 +91,7 @@ public class TFEntities {
     public static final Item LICH_MINION_SPAWN_EGG = new SpawnEggItem(LICH_MINION, 0xaca489, 0x360477, MISC_ITEM_GROUP);
 
     // Ghast
+    public static final Item UR_GHAST_SPAWN_EGG = new SpawnEggItem(UR_GHAST, 0xbcbcbc, 0xb77878, MISC_ITEM_GROUP);
     public static final Item TOWER_GHAST_SPAWN_EGG = new SpawnEggItem(TOWER_GHAST, 0xbcbcbc, 0xb77878, MISC_ITEM_GROUP);
 
     // Giant
@@ -100,6 +108,7 @@ public class TFEntities {
         Registry.register(Registry.ITEM, ForestMod.path("lich_minion_spawn_egg"), LICH_MINION_SPAWN_EGG);
 
         // Ghast
+        Registry.register(Registry.ITEM, ForestMod.path("ur_ghast_spawn_egg"), UR_GHAST_SPAWN_EGG);
         Registry.register(Registry.ITEM, ForestMod.path("tower_ghast_spawn_egg"), TOWER_GHAST_SPAWN_EGG);
 
         // Giant
@@ -112,6 +121,7 @@ public class TFEntities {
         FabricDefaultAttributeRegistry.register(LICH_MINION, LichMinionEntity.createZombieAttributes());
 
         // Ghast
+        FabricDefaultAttributeRegistry.register(UR_GHAST, UrGhastEntity.registerAttributes());
         FabricDefaultAttributeRegistry.register(TOWER_GHAST, CarminiteGhastGuardEntity.registerAttributes());
 
         // Giant
@@ -140,6 +150,7 @@ public class TFEntities {
         EntityRendererRegistry.register(LICH_BOMB, FlyingItemEntityRenderer::new);
 
         // Ghast
+        EntityRendererRegistry.register(UR_GHAST, ctx -> new UrGhastRenderer(ctx, new UrGhastModel(ctx.getPart(TFModels.UR_GHAST)), 8F, 24F));
         EntityRendererRegistry.register(TOWER_GHAST, ctx -> new CarminiteGhastRenderer<>(ctx, new TFGhastModel<>(ctx.getPart(TFModels.CARMINITE_GHASTGUARD)), 3F));
 
         // Giant

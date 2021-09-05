@@ -170,8 +170,8 @@ public class LichEntity extends HostileEntity {
         if (world.getDifficulty() == Difficulty.PEACEFUL && !isShadowClone()) {
             if (hasPositionTarget()) {
                 world.setBlockState(getPositionTarget(), TFBlocks.BOSS_SPAWNER_LICH.getDefaultState());
-                super.checkDespawn();
             }
+            discard();
         } else {
             super.checkDespawn();
         }

@@ -8,8 +8,10 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 
 public class TFGhastRenderer<T extends CarminiteGhastGuardEntity, M extends TFGhastModel<T>> extends MobEntityRenderer<T, M> {
-    public static final Identifier textureLocClosed = ForestMod.modelTexture("towerghast.png");
-    public static final Identifier textureLocOpen = ForestMod.modelTexture("towerghast_openeyes.png");
+    public static final Identifier textureLocClosed = new Identifier("textures/entity/ghast/ghast.png");
+    public static final Identifier textureLocOpen = new Identifier("textures/entity/ghast/ghast_shooting.png");
+    // TODO: assets public static final Identifier textureLocClosed = ForestMod.modelTexture("towerghast.png");
+    // TODO: assets public static final Identifier textureLocOpen = ForestMod.modelTexture("towerghast_openeyes.png");
     public static final Identifier textureLocAttack = ForestMod.modelTexture("towerghast_fire.png");
 
     public TFGhastRenderer(EntityRendererFactory.Context context, M entityModel, float f) {

@@ -10,7 +10,6 @@ import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 
@@ -72,14 +71,17 @@ public class LichBombEntity extends TFThrowableEntity implements FlyingItemEntit
     }
 
     @Override
-    protected void onCollision(HitResult hitResult) {
-        if (hitResult instanceof EntityHitResult result) {
-            if (result.getEntity() instanceof LichBoltEntity
-                    || result.getEntity() instanceof LichBombEntity
-                    || result.getEntity() instanceof LichEntity) {
-                return;
-            }
-        }
+    protected void onEntityHit(EntityHitResult entityHitResult) {
+        if (entityHitResult.getEntity() instanceof LichBombEntity
+                || entityHitResult.getEntity() instanceof LichBombEntity
+                || entityHitResult.getEntity() instanceof LichEntity)
+            return;
+        explode();
+    }
+
+    @Override
+    protected void onBlockHit(BlockHitResult blockHitResult) {
+        super.onBlockHit(blockHitResult);
         explode();
     }
 

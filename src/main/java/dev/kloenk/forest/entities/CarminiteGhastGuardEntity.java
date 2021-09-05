@@ -162,9 +162,10 @@ public class CarminiteGhastGuardEntity extends GhastEntity {
     protected void shootFireball() {
         Vec3d vec3d = this.getRotationVec(1F);
         LivingEntity target = this.getTarget();
-        double dx = target.getX() - (this.getX() + vec3d.x * 4D);
-        double dy = target.getBoundingBox().minY + target.getHeight() / 2F - (0.5D + this.getY() + this.getHeight() / 2F);
-        double dz = target.getZ() - (this.getZ() + 4D);
+        double dx = target.getX() - (this.getX() + vec3d.x * 4.0D);
+        double dy = target.getBodyY(0.5D) - (0.5D + this.getBodyY(0.5D));
+        double dz = target.getZ() - (this.getZ() + vec3d.z * 4.0D);
+
         FireballEntity fireballEntity = new FireballEntity(world, this, dx, dy, dz, this.getFireballStrength());
         fireballEntity.setPos(
                 this.getX() + vec3d.x * 4D,
@@ -344,6 +345,15 @@ public class CarminiteGhastGuardEntity extends GhastEntity {
             }
 
             this.ghast.setShooting(this.attackTimer > 10);
+        }
+    }
+
+    public static class AIHomedFly extends Goal {
+        // FIXME
+
+        @Override
+        public boolean canStart() {
+            return false;
         }
     }
 }
