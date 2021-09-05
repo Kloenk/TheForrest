@@ -3,6 +3,7 @@ package dev.kloenk.forest.entities.boss;
 import dev.kloenk.forest.ForestMod;
 import dev.kloenk.forest.blocks.TFBlocks;
 import dev.kloenk.forest.entities.CarminiteGhastGuardEntity;
+import dev.kloenk.forest.entities.CarminiteGhastlingEntity;
 import dev.kloenk.forest.entities.NoClipMoveHelper;
 import dev.kloenk.forest.entities.TFEntities;
 import dev.kloenk.forest.loot.TFTreasure;
@@ -266,17 +267,14 @@ public class UrGhastEntity extends CarminiteGhastGuardEntity {
         world.spawnEntity(lightning);
 
         for (int i = 0; i < tries; i++) {
-            // TODO: Ghastling
-            CarminiteGhastGuardEntity minion = new CarminiteGhastGuardEntity(TFEntities.TOWER_GHAST, world);
-            //CarminiteGhastlingEntity minion = new CarminiteGhastlingEntity(TFEntities.mini_ghast, level);
+            CarminiteGhastlingEntity minion = new CarminiteGhastlingEntity(TFEntities.MINI_GHAST, world);
 
             double sx = pos.getX() + ((random.nextDouble() - random.nextDouble()) * rangeXZ);
             double sy = pos.getY() + (random.nextDouble() * rangeY);
             double sz = pos.getZ() + ((random.nextDouble() - random.nextDouble()) * rangeXZ);
 
             minion.refreshPositionAndAngles(sx, sy, sz, this.world.random.nextFloat() * 360.0F, 0.0F);
-            // TODO: Ghastling
-            //minion.makeBossMinion();
+            minion.makeBossMinion();
 
             if (minion.canSpawn(world, SpawnReason.MOB_SUMMONED)) {
                 world.spawnEntity(minion);
@@ -337,10 +335,9 @@ public class UrGhastEntity extends CarminiteGhastGuardEntity {
         }
 
         // also suck up mini ghasts
-        // TODO: Ghastling
-        /*for (CarminiteGhastlingEntity ghast : world.getNonSpectatingEntities(CarminiteGhastlingEntity.class, below)) {
-            ghast.push(0, 1, 0);
-        }*/
+        for (CarminiteGhastlingEntity ghast : world.getNonSpectatingEntities(CarminiteGhastlingEntity.class, below)) {
+            ghast.addVelocity(0, 1, 0);
+        }
     }
 
     /**
@@ -352,12 +349,11 @@ public class UrGhastEntity extends CarminiteGhastGuardEntity {
         for (BlockPos trap : this.trapLocations) {
             Box box = new Box(trap, trap.add(1, 1, 1)).expand(8D, 16D, 8D);
 
-            // TODO: ghastling
-            /*List<CarminiteGhastlingEntity> nearbyGhasts = world.getNonSpectatingEntities(CarminiteGhastlingEntity.class, box);
+            List<CarminiteGhastlingEntity> nearbyGhasts = world.getNonSpectatingEntities(CarminiteGhastlingEntity.class, box);
 
             if (nearbyGhasts.size() >= 4) {
                 trapsWithEnoughGhasts++;
-            }*/
+            }
         }
 
         return trapsWithEnoughGhasts >= 1;
