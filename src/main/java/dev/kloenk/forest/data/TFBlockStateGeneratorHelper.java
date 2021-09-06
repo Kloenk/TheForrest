@@ -98,6 +98,28 @@ public class TFBlockStateGeneratorHelper {
         this.getBlockStateCollector().accept(createSingletonBlockState(block, identifier));
     }
 
+    protected void registerFlowerPotPlant(Block plantBlock, Block flowerPotBlock, TintType tintType) {
+        this.registerTintableCross(plantBlock, tintType);
+        Texture texture = Texture.plant(plantBlock);
+        Identifier identifier = tintType.getFlowerPotCrossModel().upload(flowerPotBlock, texture, this.getModelCollector());
+        this.getBlockStateCollector().accept(createSingletonBlockState(flowerPotBlock, identifier));
+    }
+
+    protected void registerTintableCross(Block block, TintType tintType) {
+        this.registerItemModel(block);
+        this.registerTintableCrossBlockState(block, tintType);
+    }
+
+    protected void registerTintableCrossBlockState(Block block, TintType tintType) {
+        Texture texture = Texture.cross(block);
+        this.registerTintableCrossBlockState(block, tintType, texture);
+    }
+
+    protected void registerTintableCrossBlockState(Block block, TintType tintType, Texture crossTexture) {
+        Identifier identifier = tintType.getCrossModel().upload(block, crossTexture, this.getModelCollector());
+        this.getBlockStateCollector().accept(createSingletonBlockState(block, identifier));
+    }
+
     protected BlockStateSupplier createThorn(Block thorn, Identifier model, Identifier topModel, Identifier bottomModel) {
         return MultipartBlockStateSupplier
                 .create(thorn)
@@ -252,4 +274,17 @@ public class TFBlockStateGeneratorHelper {
     /*public void registerSingleton(Block block, Texture texture, Model model) {
         ((BlockStateModelGeneratorAccessor)generator).registerSingletonInvoker(block, texture, model);
     }*/
+
+    protected  static enum TintType {
+        TINTED,
+        NOT_TINTED;
+
+        public Model getCrossModel() {
+            return this == TINTED ? Models.TINTED_CROSS : Models.CROSS;
+        }
+
+        public Model getFlowerPotCrossModel() {
+            return this == TINTED ? Models.TINTED_FLOWER_POT_CROSS : Models.FLOWER_POT_CROSS;
+        }
+    }
 }

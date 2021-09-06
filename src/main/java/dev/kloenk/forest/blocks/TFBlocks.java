@@ -3,11 +3,13 @@ package dev.kloenk.forest.blocks;
 import dev.kloenk.forest.ForestMod;
 import dev.kloenk.forest.entities.boss.BossVariant;
 import dev.kloenk.forest.init.TFContent;
+import dev.kloenk.forest.world.dimension.biom.feature.growers.CanopyTree;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.loader.launch.common.FabricMixinBootstrap;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.sound.BlockSoundGroup;
@@ -40,6 +42,10 @@ public class TFBlocks {
     public static final Block MANGROVE_LEAVES = new TFLeavesBlock(FabricBlockSettings.of(Material.LEAVES).strength(0.2f).ticksRandomly().nonOpaque().sounds(BlockSoundGroup.GRASS));
     public static final Block DARK_LEAVES = new TFLeavesBlock(FabricBlockSettings.of(Material.LEAVES).strength(0.2f).ticksRandomly().nonOpaque().sounds(BlockSoundGroup.GRASS));
     public static final Block RAINBOW_LEAVES = new TFLeavesBlock(FabricBlockSettings.of(Material.LEAVES).strength(0.2f).ticksRandomly().nonOpaque().sounds(BlockSoundGroup.GRASS));
+
+    // Saplings
+    public static final Block CANOPY_SAPLING = new TFSaplingBlock(new CanopyTree(), FabricBlockSettings.of(Material.PLANT).strength(0F).sounds(BlockSoundGroup.GRASS).noCollision().ticksRandomly());
+    public static final Block POTTED_CANOPY_SAPLING = new FlowerPotBlock(CANOPY_SAPLING, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
 
     // Portal
     public static final Block FOREST_PORTAL = new TFPortalBlock(FabricBlockSettings.of(Material.PORTAL).strength(-1f).sounds(BlockSoundGroup.GLASS).lightLevel(11).noCollision().nonOpaque().dropsNothing());
@@ -151,6 +157,10 @@ public class TFBlocks {
         FlammableBlockRegistry.getDefaultInstance().add(DARK_LEAVES, 60, 30);
         registerBlockAndItem("rainbow_leaves", RAINBOW_LEAVES);
         FlammableBlockRegistry.getDefaultInstance().add(RAINBOW_LEAVES, 60, 30);
+
+        // Saplings
+        registerBlockAndItem("canopy_sapling", CANOPY_SAPLING);
+        registerBlockAndItem("potted_canopy_sapling", POTTED_CANOPY_SAPLING);
 
         // Portal
         registerBlockAndItem("forest_portal", FOREST_PORTAL);

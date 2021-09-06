@@ -1,14 +1,16 @@
 package dev.kloenk.forest.world.dimension.biom.feature;
 
 import dev.kloenk.forest.ForestMod;
+import net.minecraft.block.SaplingBlock;
 import net.minecraft.sound.MusicSound;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.decorator.ConfiguredDecorator;
+import net.minecraft.world.gen.decorator.CountExtraDecoratorConfig;
+import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.NopeDecoratorConfig;
-import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.*;
 
 public class TFConfiguredFeatures {
@@ -21,7 +23,14 @@ public class TFConfiguredFeatures {
 
     public static final ConfiguredFeature<?, ?> HUGE_LILYPAD;
 
+    // Base
+    public static final ConfiguredFeature<TreeFeatureConfig, ?> CANOPY_TREE_BASE;
+
+    // Trees
+    public static final ConfiguredFeature<?, ?> CANOPY_TREES;
+
     public static final ConfiguredDecorator<?> PLACEMENT_NOTFSTRUCTURE;
+    private static final ConfiguredDecorator<?> DEFAULT_TREE_PLACEMENT;
 
     private static <FC extends FeatureConfig>ConfiguredFeature<FC, ?> register(String path, ConfiguredFeature<FC, ?> configuredFeature) {
         return register(ForestMod.path(path), configuredFeature);
@@ -33,6 +42,7 @@ public class TFConfiguredFeatures {
 
     static {
         PLACEMENT_NOTFSTRUCTURE = TFBiomeFeatures.PLACEMENT_NOTFSTRUCTURE.configure(NopeDecoratorConfig.INSTANCE);
+        DEFAULT_TREE_PLACEMENT = PLACEMENT_NOTFSTRUCTURE.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_OCEAN_FLOOR_NO_WATER).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(1, 0.4F, 1)));
 
         WOOD_ROOTS_SPREAD = register("ore/wood_roots_spread", TFBiomeFeatures.WOOD_ROOTS.configure(new DefaultFeatureConfig())
                 .decorate(PLACEMENT_NOTFSTRUCTURE)
@@ -76,6 +86,11 @@ public class TFConfiguredFeatures {
                 .spreadHorizontally()
         );
 
+        // Base
+        CANOPY_TREE_BASE = register("tree/base/canopy_tree", Feature.TREE.configure(TFTreeConfig.CANOPY_TREE));
+
+        // Trees
+        CANOPY_TREES = register("tree/canopy_tree", CANOPY_TREE_BASE.decorate(DEFAULT_TREE_PLACEMENT));
     }
 
     // TODO

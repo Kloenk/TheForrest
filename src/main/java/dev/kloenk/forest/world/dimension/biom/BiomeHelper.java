@@ -61,8 +61,7 @@ public class BiomeHelper {
 
     //Canopies, trees, and anything resembling a forest thing
     public static void addCanopyTrees(GenerationSettings.Builder biome) {
-        // TODO
-        //biome.feature(GenerationStep.Feature.VEGETAL_DECORATION, TFConfiguredFeatures.CANOPY_TREES);
+        biome.feature(GenerationStep.Feature.VEGETAL_DECORATION, TFConfiguredFeatures.CANOPY_TREES);
     }
 
     public static void addFireflyCanopyTrees(GenerationSettings.Builder biome) {

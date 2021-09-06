@@ -17,6 +17,7 @@ public class TFBlockStateGenerator extends TFBlockStateGeneratorHelper {
         // TODO: block family and filter over simple blocks
         registerLogs();
         registerLeaves();
+        registerSaplings();
         registerGiantBlocks();
         registerNagaStone();
         registerReapearingBlocks();
@@ -132,6 +133,10 @@ public class TFBlockStateGenerator extends TFBlockStateGeneratorHelper {
         this.registerSingleton(TFBlocks.MANGROVE_LEAVES, TexturedModel.LEAVES);
         this.registerSingleton(TFBlocks.DARK_LEAVES, TexturedModel.LEAVES);
         this.registerSingleton(TFBlocks.RAINBOW_LEAVES, TexturedModel.LEAVES);
+    }
+
+    protected void registerSaplings() {
+        this.registerFlowerPotPlant(TFBlocks.CANOPY_SAPLING, TFBlocks.POTTED_CANOPY_SAPLING, TintType.NOT_TINTED);
     }
 
     public void registerSpawners() {
@@ -394,4 +399,5 @@ public class TFBlockStateGenerator extends TFBlockStateGeneratorHelper {
                 );
 
     }
+
 }
