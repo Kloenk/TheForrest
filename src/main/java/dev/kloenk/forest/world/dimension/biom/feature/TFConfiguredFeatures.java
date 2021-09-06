@@ -25,9 +25,15 @@ public class TFConfiguredFeatures {
 
     // Base
     public static final ConfiguredFeature<TreeFeatureConfig, ?> CANOPY_TREE_BASE;
+    public static final ConfiguredFeature<TreeFeatureConfig, ?> DEAD_CANOPY_TREE_BASE;
 
     // Trees
     public static final ConfiguredFeature<?, ?> CANOPY_TREES;
+    public static final ConfiguredFeature<?, ?> DEAD_CANOPY_TREES;
+
+    // Thinks to find
+    public static final ConfiguredFeature<?, ?> BIG_MUSHGLOOM;
+    public static final ConfiguredFeature<?, ?> FOUNDATION;
 
     public static final ConfiguredDecorator<?> PLACEMENT_NOTFSTRUCTURE;
     private static final ConfiguredDecorator<?> DEFAULT_TREE_PLACEMENT;
@@ -88,9 +94,24 @@ public class TFConfiguredFeatures {
 
         // Base
         CANOPY_TREE_BASE = register("tree/base/canopy_tree", Feature.TREE.configure(TFTreeConfig.CANOPY_TREE));
+        DEAD_CANOPY_TREE_BASE = register("tree/base/dead_canopy_tree", Feature.TREE.configure(TFTreeConfig.CANOPY_TREE_DEAD));
 
         // Trees
         CANOPY_TREES = register("tree/canopy_tree", CANOPY_TREE_BASE.decorate(DEFAULT_TREE_PLACEMENT));
+        DEAD_CANOPY_TREES = register("tree/dead_canopy_tree", DEAD_CANOPY_TREE_BASE.decorate(DEFAULT_TREE_PLACEMENT).applyChance(20));
+
+        // Things to find
+        BIG_MUSHGLOOM = register("big_mushgloom", TFBiomeFeatures.BIG_MUSHGLOOM.configure(DefaultFeatureConfig.DEFAULT)
+                .decorate(PLACEMENT_NOTFSTRUCTURE)
+                .decorate(ConfiguredFeatures.Decorators.HEIGHTMAP_WORLD_SURFACE)
+                .spreadHorizontally()
+        );
+        FOUNDATION = register("structure/foundation", TFBiomeFeatures.FOUNDATION.configure(DefaultFeatureConfig.DEFAULT)
+                .decorate(PLACEMENT_NOTFSTRUCTURE)
+                .decorate(ConfiguredFeatures.Decorators.HEIGHTMAP_WORLD_SURFACE)
+                .applyChance(90)
+                .spreadHorizontally()
+        );
     }
 
     // TODO

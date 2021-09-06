@@ -31,6 +31,22 @@ public class BiomeHelper {
 
     }
 
+    public static GenerationSettings.Builder denseForestGen() {
+        GenerationSettings.Builder biome = defaultGenSettingsBuilder();
+
+        biome.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.JUNGLE_BUSH);
+
+        addForestVegetation(biome);
+        commonFeatures(biome);
+        addCanopyTrees(biome);
+        addForestOakTrees(biome);
+        addHollowOakTrees(biome);
+        addDefaultStructures(biome);
+
+        return biome;
+    }
+
+
     public static void addForestVegetation(GenerationSettings.Builder biome) {
         // TODO
         biome.feature(GenerationStep.Feature.VEGETAL_DECORATION, TFConfiguredFeatures.HUGE_LILYPAD);
@@ -44,8 +60,8 @@ public class BiomeHelper {
 
         // TODO
         biome.feature(GenerationStep.Feature.VEGETAL_DECORATION, TFConfiguredFeatures.WELL);
-        /*biome.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.FOUNDATION);
-        biome.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.GROVE_RUINS);
+        biome.feature(GenerationStep.Feature.VEGETAL_DECORATION, TFConfiguredFeatures.FOUNDATION);
+        /*biome.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.GROVE_RUINS);
         biome.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.DRUID_HUT);*/
     }
 
@@ -70,8 +86,7 @@ public class BiomeHelper {
     }
 
     public static void addDeadCanopyTrees(GenerationSettings.Builder biome) {
-        // TODO
-        // biome.feature(GenerationStep.Feature.VEGETAL_DECORATION, TFConfiguredFeatures.DEAD_CANOPY_TREES);
+        biome.feature(GenerationStep.Feature.VEGETAL_DECORATION, TFConfiguredFeatures.DEAD_CANOPY_TREES);
     }
 
     public static void addCanopyMushrooms(GenerationSettings.Builder biome, boolean dense) {
@@ -178,6 +193,12 @@ public class BiomeHelper {
         //biome.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, TFConfiguredFeatures.PLANT_ROOTS);
         biome.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, TFConfiguredFeatures.TORCH_BERRIES);
         DefaultBiomeFeatures.addDefaultOres(biome);
+    }
+
+    // Particles
+    public static BiomeEffects.Builder fireflyParticles(BiomeEffects.Builder builder) {
+        // TODO ambientEffects
+        return builder;
     }
 
     // builders

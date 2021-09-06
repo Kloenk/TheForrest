@@ -27,6 +27,19 @@ public class BiomeMaker extends BiomeHelper {
                 defaultMobSpawning().playerSpawnFriendly(),
                 theForrestGen()
         ).build());
+
+        biomes.put(TFBiomeKeys.DENSE_FOREST, biomeWithDefaults(
+                fireflyParticles(defaultAmbientBuilder())
+                    .waterColor(0x005522),
+                defaultMobSpawning().playerSpawnFriendly(),
+                denseForestGen()
+            )
+                .temperature(0.7F)
+                .downfall(0.8F)
+                .depth(0.1f)
+                .scale(0.2f)
+                .build()
+        );
         //BuiltinRegistries.add(BuiltinRegistries.BIOME, )
     }
 

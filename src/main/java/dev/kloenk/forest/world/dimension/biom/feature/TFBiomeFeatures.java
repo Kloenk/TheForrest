@@ -14,6 +14,8 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 
 public class TFBiomeFeatures {
+    public static final Feature<DefaultFeatureConfig> BIG_MUSHGLOOM = register("big_mushgloom", new TFGenBigMushgloom(DefaultFeatureConfig.CODEC));
+
     public static final Feature<DefaultFeatureConfig> WOOD_ROOTS = register("wood_roots", new TFWoodRootsFeature(DefaultFeatureConfig.CODEC));
 
     public static final Feature<DefaultFeatureConfig> WELL = register("well", new TFWellFeature(DefaultFeatureConfig.CODEC));
@@ -28,6 +30,7 @@ public class TFBiomeFeatures {
 
     public static final Feature<DefaultFeatureConfig> HUGE_LILYPADS = register("huge_lilypads", new TFGenHugeLilyPad(DefaultFeatureConfig.CODEC));
 
+    public static final Feature<DefaultFeatureConfig> FOUNDATION = register("foundation", new TFGenFoundation(DefaultFeatureConfig.CODEC));
 
     public static final Decorator<NopeDecoratorConfig> PLACEMENT_NOTFSTRUCTURE = new OutOfStructureFilter(NopeDecoratorConfig.CODEC);
 

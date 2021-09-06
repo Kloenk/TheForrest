@@ -59,6 +59,10 @@ public class TFBlockStateGenerator extends TFBlockStateGeneratorHelper {
         this.registerSimpleState(TFBlocks.FOREST_PORTAL);
 
         this.registerSimpleState(TFBlocks.TROLLSTEIN);
+
+        // some stem texture
+        this.registerSimpleState(TFBlocks.HUGE_MUSHGLOOM);
+        this.registerSimpleState(TFBlocks.HUGE_MUSHGLOOM_STEM);
     }
 
     private void registerCubes() {

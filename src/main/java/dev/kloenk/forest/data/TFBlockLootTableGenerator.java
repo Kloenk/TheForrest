@@ -72,6 +72,9 @@ public class TFBlockLootTableGenerator {
         this.addDrop(TFBlocks.CANOPY_SAPLING);
         this.addDrop(TFBlocks.POTTED_CANOPY_SAPLING);
 
+        this.addDrop(TFBlocks.HUGE_MUSHGLOOM);
+        this.addDrop(TFBlocks.HUGE_MUSHGLOOM_STEM);
+
         this.addDrop(TFBlocks.MAZE_STONE);
         this.addDrop(TFBlocks.MAZE_STONE_BRICK);
         this.addDrop(TFBlocks.MAZE_STONE_CHISELED);

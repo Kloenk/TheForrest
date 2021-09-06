@@ -19,7 +19,7 @@ public class TFGenLayerBiomes implements InitLayer {
 
     protected static final List<RegistryKey<Biome>> commonBiomes = ImmutableList.of(
             TFBiomeKeys.FOREST,
-            BiomeKeys.JUNGLE
+            TFBiomeKeys.DENSE_FOREST
     );
 
     protected static final List<RegistryKey<Biome>> rareBiomes = ImmutableList.of(

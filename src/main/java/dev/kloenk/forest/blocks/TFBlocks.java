@@ -47,6 +47,10 @@ public class TFBlocks {
     public static final Block CANOPY_SAPLING = new TFSaplingBlock(new CanopyTree(), FabricBlockSettings.of(Material.PLANT).strength(0F).sounds(BlockSoundGroup.GRASS).noCollision().ticksRandomly());
     public static final Block POTTED_CANOPY_SAPLING = new FlowerPotBlock(CANOPY_SAPLING, FabricBlockSettings.of(Material.DECORATION).breakInstantly().nonOpaque());
 
+    // Shroom
+    public static final Block HUGE_MUSHGLOOM = new MushroomBlock(FabricBlockSettings.of(Material.WOOD, MapColor.ORANGE).strength(0.2F).sounds(BlockSoundGroup.WOOD).luminance(5));
+    public static final Block HUGE_MUSHGLOOM_STEM = new MushroomBlock(FabricBlockSettings.of(Material.WOOD, MapColor.ORANGE).strength(0.2F).sounds(BlockSoundGroup.WOOD).luminance(5));
+
     // Portal
     public static final Block FOREST_PORTAL = new TFPortalBlock(FabricBlockSettings.of(Material.PORTAL).strength(-1f).sounds(BlockSoundGroup.GLASS).lightLevel(11).noCollision().nonOpaque().dropsNothing());
 
@@ -161,6 +165,9 @@ public class TFBlocks {
         // Saplings
         registerBlockAndItem("canopy_sapling", CANOPY_SAPLING);
         registerBlockAndItem("potted_canopy_sapling", POTTED_CANOPY_SAPLING);
+
+        registerBlockAndItem("huge_mushgloom", HUGE_MUSHGLOOM);
+        registerBlockAndItem("huge_mushgloom_stem", HUGE_MUSHGLOOM_STEM);
 
         // Portal
         registerBlockAndItem("forest_portal", FOREST_PORTAL);

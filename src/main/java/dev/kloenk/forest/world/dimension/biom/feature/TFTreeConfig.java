@@ -6,6 +6,7 @@ import dev.kloenk.forest.blocks.TFBlocks;
 import dev.kloenk.forest.world.dimension.biom.feature.placer.tree.BranchesConfig;
 import dev.kloenk.forest.world.dimension.biom.feature.placer.tree.BranchingTrunkPlacer;
 import dev.kloenk.forest.world.dimension.biom.feature.placer.tree.LeafSpheroidFoliagePlacer;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
@@ -52,6 +53,18 @@ public class TFTreeConfig {
             new SimpleStateProvider(TFBlocks.firefly_jar.get().defaultBlockState())
             )
             ))*/
+            .ignoreVines()
+            .build();
+
+    public static final TreeFeatureConfig CANOPY_TREE_DEAD = new TreeFeatureConfig.Builder(
+            new SimpleBlockStateProvider(TFBlocks.CANOPY_LOG.getDefaultState()),
+            new BranchingTrunkPlacer(20, 5, 5, 7, new BranchesConfig(3, 1, 10, 1, 0.3, 0.2), false),
+            new SimpleBlockStateProvider(Blocks.AIR.getDefaultState()),
+            new SimpleBlockStateProvider(TFBlocks.CANOPY_SAPLING.getDefaultState()),
+            new LeafSpheroidFoliagePlacer(0, 0, ConstantIntProvider.create(0), 0, 0, 0, 0),
+            new TwoLayersFeatureSize(20, 0, canopyDistancing)
+    )
+            // TODO: .decorators(ImmutableList.of(TreeDecorators.FIREFLY, TreeDecorators.LIVING_ROOTS))
             .ignoreVines()
             .build();
 }

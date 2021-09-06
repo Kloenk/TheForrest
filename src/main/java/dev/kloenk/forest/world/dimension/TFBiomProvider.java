@@ -31,8 +31,8 @@ public class TFBiomProvider extends BiomeSource {
     // TODO: biome list
     private static final List<RegistryKey<Biome>> BIOMES = ImmutableList.of(
             TFBiomeKeys.FOREST,
-            BiomeKeys.BEACH,
-            BiomeKeys.JUNGLE
+            TFBiomeKeys.DENSE_FOREST,
+            BiomeKeys.BEACH
     );
 
     private final Registry<Biome> registry;
