@@ -4,6 +4,7 @@ import dev.kloenk.forest.blocks.blockentities.TFBlockEntities;
 import dev.kloenk.forest.data.TFBlockTagsGenerator;
 import dev.kloenk.forest.data.TFConfiguredCaverGenerator;
 import dev.kloenk.forest.data.TFConfiguredFeatureGenerater;
+import dev.kloenk.forest.data.TFRecipesGenerator;
 import dev.kloenk.forest.init.TFContent;
 import dev.kloenk.forest.world.dimension.TFDimension;
 import net.fabricmc.api.ModInitializer;
@@ -60,6 +61,7 @@ public class ForestMod implements ModInitializer {
         generator.install(new TFBlockTagsGenerator(generator));
         generator.install(new TFConfiguredFeatureGenerater(generator));
         generator.install(new TFConfiguredCaverGenerator(generator));
+        generator.install(new TFRecipesGenerator(generator));
         // TODO: recipies
 
         try {

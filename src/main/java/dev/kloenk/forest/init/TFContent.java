@@ -4,6 +4,7 @@ import dev.kloenk.forest.ForestMod;
 import dev.kloenk.forest.blocks.TFBlocks;
 import dev.kloenk.forest.entities.GiantMinerEntity;
 import dev.kloenk.forest.entities.TFEntities;
+import dev.kloenk.forest.item.TFItems;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -25,6 +26,7 @@ public class TFContent {
 
     public static void register() {
         TFBlocks.register();
+        TFItems.register();
         TFEntities.register();
 
         // Giant Miner

@@ -8,6 +8,7 @@ import dev.kloenk.forest.client.model.entity.TFGhastModel;
 import dev.kloenk.forest.client.model.entity.UrGhastModel;
 import dev.kloenk.forest.client.renderer.entity.*;
 import dev.kloenk.forest.entities.boss.*;
+import dev.kloenk.forest.entities.projectile.ForestWandBoltEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
@@ -75,6 +76,16 @@ public class TFEntities {
             "mini_ghast",
             FabricEntityTypeBuilder.Mob.<CarminiteGhastlingEntity>create(SpawnGroup.MONSTER, CarminiteGhastlingEntity::new)
                     .dimensions(EntityDimensions.fixed(1.1F, 1.5F))
+                    .build()
+    );
+
+    // Wand
+    public static final EntityType<ForestWandBoltEntity> WAND_BOLT = registerEntityType(
+            "wand_bolt",
+            FabricEntityTypeBuilder.Mob.<ForestWandBoltEntity>create(SpawnGroup.MISC, ForestWandBoltEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.25F, 0.25F))
+                    .trackRangeBlocks(150)
+                    .trackedUpdateRate(5)
                     .build()
     );
 
@@ -158,6 +169,9 @@ public class TFEntities {
         EntityRendererRegistry.register(UR_GHAST, ctx -> new UrGhastRenderer(ctx, new UrGhastModel(ctx.getPart(TFModels.UR_GHAST)), 8F, 24F));
         EntityRendererRegistry.register(TOWER_GHAST, ctx -> new CarminiteGhastRenderer<>(ctx, new TFGhastModel<>(ctx.getPart(TFModels.CARMINITE_GHASTGUARD)), 3F));
         EntityRendererRegistry.register(MINI_GHAST, ctx -> new TFGhastRenderer<>(ctx, new TFGhastModel(ctx.getPart(TFModels.CARMINITE_GHASTLING)), 0.625F));
+
+        // Bolt
+        EntityRendererRegistry.register(WAND_BOLT, FlyingItemEntityRenderer::new);
 
         // Giant
         EntityRendererRegistry.register(GIANT_MINER, (ctx) -> new GiantMinerEntity.GiantMinerEntityRenderer<GiantMinerEntity>(ctx));
